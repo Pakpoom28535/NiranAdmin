@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+
+    .custom-link {
+        color: #FFA500; /* Set the color to your desired color (e.g., orange) */
+        text-decoration: none; /* Remove the default underline */
+    }
+
+    .custom-link:hover {
+        color: #FFD700; /* Set the color for the link when hovered (e.g., gold) */
+    }
+
+    /* *,::after,::before{
+        box-sizing: border-box;
+    }
+    .amount-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } */
+
+    .shopping-cart{
+	padding-bottom: 50px;
+	border-radius: 10px;
+    background-color: inherit;
+}
+
+.shopping-cart.dark{
+	 background-color: #e5e5e5;
+    
+}
+
+.shopping-cart .content{
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+	background-color: white;
+   
+}
+
+.shopping-cart .add-more{
+    padding-top: 20px;
+}
+
+.shopping-cart .block-heading{
+    padding-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.shopping-cart .block-heading p{
+	text-align: center;
+	max-width: 420px;
+	margin: auto;
+	opacity:0.7;
+}
+
+.shopping-cart .dark .block-heading p{
+	opacity:0.8;
+}
+
+.shopping-cart .block-heading h1,
+.shopping-cart .block-heading h2,
+.shopping-cart .block-heading h3 {
+    font-family: 'Kanit', sans-serif;
+	margin-bottom:1.2rem;
+	color: #3b99e0;
+}
+
+.shopping-cart .items{
+	margin: auto;
+    border-radius: 5px;
+}
+
+
+
+.shopping-cart .items .product{
+	/* margin-bottom: 1rem; */
+	/* padding-top: 2rem; */
+	padding-bottom: 2rem;
+}
+
+.shopping-cart .items .product .info{
+	padding-top: 0px;
+	text-align: left;
+}
+
+.shopping-cart .items .product .info .product-name{
+	font-weight: 600;
+}
+
+.shopping-cart .items .product .info .product-name .product-info{
+	font-size: 14px;
+	margin-top: 15px;
+    color: #1b3431;
+    
+}
+
+.shopping-cart .items .product .info .product-name .product-info .value{
+	font-weight: 400;
+    color: #000000;
+    text-align: left;
+    padding: 5px;
+}
+
+.shopping-cart .items .product .info .quantity .quantity-input{
+    margin: auto;
+    width: 80px;
+}
+
+.shopping-cart .items .product .info .price{
+	margin-top: 15px;
+    font-weight: bold;
+    font-size: 22px;
+ }
+
+.shopping-cart .summary{
+	border-top: 5px solid #dea567;
+    background-color: #1b3431;
+    height: 100%;
+    padding: 30px;
+}
+
+.shopping-cart .summary h3{
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: 600;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.shopping-cart .summary .summary-item:not(:last-of-type){
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-bottom: 1px solid #dea567;
+}
+
+.shopping-cart .summary .text{
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.shopping-cart .summary .price{
+	font-size: 1em;
+	float: right;
+}
+
+.shopping-cart .summary button{
+	margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+	.shopping-cart .items .product .info {
+		padding-top: 25px;
+		text-align: left; 
+	}
+
+	.shopping-cart .items .product .info .price {
+		font-weight: bold;
+		font-size: 18px;
+		top: 17px; 
+	}
+
+	.shopping-cart .items .product .info .quantity {
+		text-align: center; 
+	}
+	.shopping-cart .items .product .info .quantity .quantity-input {
+		padding: 4px 10px;
+		text-align: center; 
+	}
+}
+</style>
+   <section class="py-5 ud-features">
+    <div class="container-fluid px-4 px-lg-5 mt-5" style="padding-top: 6rem;">
+       
+        <section class="shopping-cart dark">
+        
+            <div class="container">
+
+               <div class="block-heading">
+                 <h2 style="color:#d78e3e;" >ตระกร้าสินค้า</h2>
+                 <p style="color: #000000;">คุณมีของในตระกร้าสินค้า  <span style="color:#0d6efd;; font-weight: 1000;">1</span> รายการ</p>
+               </div>
+               <div class="content">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-8">
+                            <div class="items">
+                                <div class="product">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-3">
+                                            <img class="img-fluid mx-auto d-block image p-2" src="/media/reports/2.png">
+                                        </div>
+                                        <div class="col-lg col-md-8">
+                                            <div class="info">
+                                                <div class="row p-3">
+                                                    <div class="col-md-8 col-sm product-name">
+                                                        <div class="product-name">
+                                                            <h4 href="#">พวงหรีดรักษ์โลก NR404 </h4>
+                                                            <h7 href="#">ราคา 1900 บาท</h7>
+                                                            <div class="product-info ">
+                                                                <div class="row text-left">
+                                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                        <span class="value" style=" font-weight: bold;">รายละเอียดข้อมูลที่ทำการสั่งซื้อ :  </span>
+                                                                    </div>
+                                                                    <div class="col-lg col-md col-sm">
+                                                                        <span class="value">ข้อความบรรทัดที่ 1 : </span>  <span class="value">asdsadsadsadsa</span>
+                                                                    </div>
+                                                                    <div class="col-lg col-md col-sm">
+                                                                        <span class="value">ข้อความบรรทัดที่ 2 :</span> <span class="value">asdsadsadsadsa</span>
+                                                                    </div>
+                                                                  
+                                                                    <div class="col-lg col-md col-sm-12">
+                                                                        <span class="value">ชื่อผู้วายชนม์ : asdsadasdasdsadasd</span>
+                                                                    </div>
+                                                                    <div class="col-lg col-md col-sm-12">
+                                                                        <span class="value">ที่อยู่จัดสงสินค้า: asdsadasdsadsadasdsasadsad</span>
+                                                                    </div>
+                                                                   
+
+                                                                </div>
+                                                                <div>
+                                                                   
+
+                                                                    
+                                                                </div>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md col-sm quantity">
+                                                        <label for="quantity">จำนวน :</label>
+                                                        <input id="quantity" type="number" value ="1" min="1" class="form-control quantity-input">
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-4">
+                            <div class="summary">
+                                <h3>Summary</h3>
+                                <div class="summary-item"><span class="text">ยอดรวม</span><span class="price" id="price">3000 บาท</span></div>
+                                <!-- <div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div> -->
+                                <div class="summary-item"><span class="text">ค่าขนส่ง</span><span class="price" id="ship_pcice">15 บาท</span></div>
+                                <div class="summary-item"><span class="text">รวม</span><span class="price" id="total">3015 บาท</span></div>
+                                <div class="row">
+                                    <div class="col-12 p-5 text-center">
+                                        <a href="/cartpayment" type="button" style="width: 100%;" class="btn btn-warning btn-lg btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ชำระสินค้า</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </section>
+
+
+       <!-- ====== Contact End ====== -->
+
+<div class="ud-pricing wow fadeInUp" data-wow-delay=".15s">
+    <div class="container text-center">
+      <div class="row">
+            <div class="col-12 col-lg-12">
+              <a href="index.html" class="ud-footer-logo">
+                <img src="{% static 'assets/images/niranImg/logo.png' %}" style="height: auto; width: 30%;" alt="logo" />
+              </a>
+              <p class="ud-widget-desc" style="font-size: 6vh;     line-height: 50px;">
+                นิรันดร์ พวงหรีดรักษ์โลก
+              </p>
+            </div>
+            <div class="col-12 col-lg-12 mt-5">
+              <div class="ud-widget">
+      
+                <ul class="ud-widget-socials d-flex justify-content-center">
+                  <li>
+                    <a href="https://www.facebook.com/niran.officialth/">
+                      <i class="lni lni-facebook-filled" style="font-size: 2em;"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.instagram.com/niranwreath/">
+                      <i class="lni lni-instagram-filled" style="font-size: 2em;"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://lin.ee/KpuPbQ0">
+                      <img src="{% static 'assets/images/niranImg/icons/line-black.png' %}" style="height: auto; width: 2rem;" alt="logo" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+      </div>
+    </div>
+
+
+        <!-- <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-left mt-5">
+            {% for product in list_product %}
+
+                <div class="col mb-2">
+                    <div class="team__item-3 set-bg uk-border-rounded" style="background-image: url('{{ product.product_img_set.first.Product_Img.url }}');" >
+                        <div class="team__text">
+                            <div class="team__title">
+                                <h5>{{ product.Product_Code }}</a></h5>
+                            </div>
+                            <p class="text-warning">ราคา {{ product.Product_Price }} บาท</p>
+                            <p >{{ product.Product_Detial }}</p>
+                            <div class="mt-2 border-warning">
+                                <p class="text-warning text-center"><a href="/Product/{{product.Product_Code}}" class="custom-link">กดตรงนี้เพื่อสั่งซื้อ</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div> -->
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+var product_pricce = 1900;
+    $(document).ready(function(){
+        
+        $('#quantity').on('change', function () {
+            var quantity = $('#quantity').val(); // Get the quantity value
+                var pricePerUnit = product_pricce; // Assuming the price per unit is 3000 บาท
+                var totalPrice = quantity * pricePerUnit; // Calculate total price
+                var ship_pice2 = 15;
+                // Update the total price in the HTML
+                $('#price').text(totalPrice + ' บาท');
+                var all_pcice = totalPrice + +ship_pice2;
+                $('#total').text( all_pcice+ ' บาท');
+        });
+    });
+
+</script>
+
+{% endblock content%}

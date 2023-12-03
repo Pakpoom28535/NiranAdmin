@@ -1,0 +1,294 @@
+{% extends "adminlte/base.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+  /* Style for the modal */
+  #myModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.9);
+      padding-top: 60px;
+  }
+
+  /* Style for the modal content */
+  .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+  }
+
+  /* Style for the close button */
+  .close {
+      color: #000000;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 25px;
+      cursor: pointer;
+  }
+
+  /* Style for the image in the modal */
+  .modal-content img {
+      width: 100%;
+  }
+</style>
+<div id="main">
+
+    <div class="page-content">
+      
+                    
+        <div class="card">
+            <div class="card-header">
+              <h4>ตารางรายการงานและรายละเอียด</h4>
+            <button class="btn btn-primary rounded-pill" style="margin:auto;" id="searchButton"onclick="window.location.href='/addproduct'">+ADD PRODUCT</button>
+            </div>
+            <div class="card-body">
+    
+              <table id="myTable" class="display">
+                  <thead>
+                      <tr>
+                        <th>No</th>
+                          <th>Product Code</th>
+                          <th>Product Price</th>
+                          <th>Product Detial</th>
+                          <th>Photo</th>
+                          <th>Status</th>
+                          <th>ACTIONS</th>
+                        
+                         
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for product in list_product %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ product.Product_Code }}</td>
+                      <td>{{ product.Product_Price }}</td>
+                      <td>{{ product.Product_Detial }}</td>
+                      <td><img src="{{product.product_img_set.first.Product_Img.url}}" alt="{{ product.Product_Code }} Image" width="50" height="auto;" onclick="showImage('{{product.product_img_set.first.Product_Img.url}}')"></td>
+                      {% if product.Is_active == True %}
+                      <td>  <span class="badge bg-success">Publish</span></td>
+                
+                      {% else %}
+                          <td>  <span class="badge bg-danger">Inactive</span></td>
+                      {% endif %}       
+                     
+                      
+                      <td><div class="btn-group dropdown">
+                        <a class="btn icon btn-primary" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" >
+                          <a class="dropdown-item" onclick="window.location.href='/editproduct/{{product.Product_id}}'">แก้ไข</a>
+                          <a class="dropdown-item" onclick="delete_data({{product.Product_id}})">ลบ</a>
+                        
+                        </div>
+                    </div></td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+              </table>
+            </div>
+          </div>
+   
+    </div>
+  
+
+</div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modalImage" src="" alt="Modal Image">
+  </div>
+</div>
+<script>
+
+
+  function delete_data(id){
+    
+    Swal.fire({
+        title: 'ต้องการลบสินค้าหรือไม่?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ลบข้อมูล',
+        cancelButtonText: 'ยกเลิก'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "POST",
+            url: "/product", 
+            dataType: 'json',
+                async: false,
+                //json object to sent to the authentication url
+                data: {
+                   csrfmiddlewaretoken: '{{ csrf_token }}' ,
+                   "remove_id":id
+                },
+            success: function(data)
+            {	
+              console.log(data);
+              if(data['data'] == 'ok'){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'ลบข้อมูลสำเร็จ',  // Display the first message
+                    showConfirmButton: false, // This will remove the "OK" button
+                });
+                    // After 5 seconds, reload the page
+                setTimeout(function () {
+                    location.reload();
+                }, 2000); // 3000 milliseconds = 3 seconds
+              }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data['msg'],  // Display the first message
+                    
+                });
+              }
+              
+            }
+          });
+        }
+      });
+   
+  }
+  function showImage(imageUrl) {
+      var modal = document.getElementById('myModal');
+      var modalImage = document.getElementById('modalImage');
+
+      // Set the image source
+      modalImage.src = imageUrl;
+
+      // Display the modal
+      modal.style.display = 'block';
+  }
+
+  function closeModal() {
+      var modal = document.getElementById('myModal');
+      modal.style.display = 'none';
+  }
+</script>
+<script>
+  $(document).ready( function () {
+
+  var now = new Date();
+  now.setHours(now.getHours() + 7);
+  // Format the date to match the datetime-local input format (YYYY-MM-DDTHH:mm)
+  var formattedDate = now.toISOString().slice(0, 16);
+
+  // Set the value of the input field
+  $('#bdate').val(formattedDate);
+
+  var table= $('#myTable').DataTable( {
+    
+    dom: 'Bfrtip',
+    buttons: [
+    {
+      extend: 'excelHtml5',
+      text: 'Excel',
+      charset: 'UTF-8',
+      // Other options and customization
+  }
+    ],
+    responsive: true,
+    rowReorder: {
+      selector: 'td:nth-child(2)'
+  }
+
+
+  });  
+
+  $('#myTable th#th_row').css('width', '20px');
+
+
+  });
+
+
+  function fillter () {
+  $.ajax({
+  url: '/todolist',
+  method: 'GET',
+  data: { action: 2 ,
+    start: $("#startdate").val(),
+    end: $("#enddate").val()
+  },
+  success: function(response) {
+  // Handle the response from the server
+  console.log( response);
+  var dataTable = $('#myTable').DataTable();
+  var cmd = 1;
+  dataTable.clear().draw();
+  response.list_job.forEach(function(element) {
+  console.log(element); // Perform any action you want with each element
+  var newData = []; // Replace with your actual data
+  newData.push(cmd);
+  cmd = cmd+1;
+  newData.push(element.Workdetail__WorkType__Worktype_name)
+  newData.push(element.Workdetail__Workdetail_Code)
+  newData.push(element.Customer__Customer_name)
+  newData.push(element.jobdetial)
+  newData.push(element.jobnote)
+
+  if(element.status == "NewTask"){
+    newData.push('<span class="badge bg-danger">New</span>')
+  }else if(element.status = "Done"){
+    newData.push('<span class="badge bg-success">Done</span>')
+  }else{
+    newData.push('<span class="badge bg-secondary">Canncel</span>')
+  }
+  // Parse the original date string
+  const originalDate = new Date(element.create_at);
+
+  // Format the date to "DD/MM/YYYY HH:mm"
+  const formattedDate = `${originalDate.getDate()}/${originalDate.getMonth() + 1}/${originalDate.getFullYear()} ${originalDate.getHours()}:${originalDate.getMinutes()}`;
+  newData.push(formattedDate)
+
+  if(element.complete == null){
+    newData.push(element.complete)
+  }else{
+    const originalDate = new Date(element.complete);
+
+    // Format the date to "DD/MM/YYYY"
+    const formattedDate = `${originalDate.getDate()}/${originalDate.getMonth() + 1}/${originalDate.getFullYear()}`;
+    newData.push(formattedDate);
+  }
+
+  newData.push(element.used)
+
+  // newData.push('<div class="btn-group dropdown">'+
+  //  '<a class="btn icon btn-primary" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil"></i></a>'+
+  //  '<div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" >'+
+  //    '<a class="dropdown-item" onclick="editTask('+ element.Workhis_id +')">แก้ไข</a>'+
+  //   '<a class="dropdown-item" onclick="delete_data('+ element.Workhis_id +',\''+ element.Workdetail__Workdetail_Code +'\',\''+ formatDate(element.create_at) +'\')">ลบ</a>'+
+  // '</div>')
+  newData.push(element.UserProfile__user__username)
+  newData.push(element.UserProfile_assignment__codename)
+  dataTable.row.add(newData).draw();
+  })
+
+
+  // $("#Total").text(response.count.workhis_count+ " Unit");
+  // $("#Done").text(response.count.workhis_count_done + " Unit");
+  // $("#New").text(response.count.workhis_count_new+ " Unit");
+  //  $("#Cancel").text(response.count.workhis_count_cancel+" Unit");
+  },
+  error: function(xhr, status, error) {
+  // Handle errors
+  console.log("Error: " + error);
+  }
+  });
+  }
+  </script>
+{% endblock content%}

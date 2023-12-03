@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบการจัดการงาน Task Management</title>
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'admin/assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/iconly/bold.css' %}">
+
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/css/app.css' %}">
+    <link rel="shortcut icon" href="{% static 'admin/assets/images/favicon.svg" type="image/x-icon' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+  
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    
+
+</head>
+<style>
+    *{
+        font-family: 'Noto Sans Thai', sans-serif;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title"><a href="#">  ยินดีต้อนรับ !</a></li>
+                        <li class="sidebar-title">ผู้ใช้งาน:</li> <span class="sidebar-title">{{ name }}</span>
+                        <li class="sidebar-title">เมนู</li>
+                        <li class="sidebar-item">
+                            <a href="/home" class='sidebar-link'>
+                                <i class="bi bi-journal-check"></i>
+                                <span>Dashborad</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/sale" class="sidebar-link">
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Order</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-pentagon-fill"></i>
+                                <span>Products</span>
+                            </a>
+                            <ul class="submenu" style="display: none;">
+                                <li class="submenu-item ">
+                                 
+                                    <a href="/product" >Product List</a>
+                                </li>
+                                <li class="submenu-item ">
+                                 
+                                    <a href="/addproduct">Add Product</a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+                        
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-pentagon-fill"></i>
+                                <span>เมนูจัดการ</span>
+                            </a>
+                            <ul class="submenu" style="display: none;">
+                                <li class="submenu-item ">
+                                 
+                                    <a href="/admin" target="_blank">Admin-site</a>
+                                </li>
+                                <li class="submenu-item ">
+                                 
+                                    <a href="/signout">ออกจากระบบ</a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+
+        <div class="wrapper" >
+            {% block content %}
+
+
+            {% endblock content%}
+        </div>
+
+     
+    </div>
+
+   
+    <script src="{% static 'admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'admin/assets/vendors/apexcharts/apexcharts.js' %}"></script>
+    <script src="{% static 'admin/assets/js/pages/dashboard.js' %}"></script>
+
+    <script src="{% static 'admin/assets/js/main.js' %}"></script>
+   
+    <script src="{% static 'admin/js/main.js' %}"></script>
+    <script src="{% static 'admin/js/alert.js' %}"></script>
+    <script src="{% static 'admin/js/summation.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+</body>
+
+</html>

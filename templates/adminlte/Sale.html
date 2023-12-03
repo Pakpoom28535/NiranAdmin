@@ -1,0 +1,229 @@
+{% extends "adminlte/base.html" %}
+
+{% block content %}
+{% load static %}
+
+<div id="main">
+
+    <div class="page-content">
+        <div class="page-heading">
+            <h3>ประวัติการทำรายการขายล่าสุด</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="home">หน้าหลัก</a></li>
+         
+                  <li class="breadcrumb-item active" aria-current="page"><a href="#">ประวัติการทำรายการขายล่าสุด</a></li>
+                </ol>
+              </nav>
+        </div>
+        
+        <div class="page-content">
+            
+            <div class="card">
+                <div class="card-header">
+                  <h4>ตารางรายการงานและรายละเอียด</h4>
+                  <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="fname">วันที่เริ่มต้น</label>
+                            <input type="date" value="{{count.start}}" class="form-control" id="startdate" name="startdate"  Required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="fname">วันที่สิ้นสุด</label>
+                            <input type="date" value = "{{count.end}}"class="form-control" id="enddate" name="enddate"  Required>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary rounded-pill" style="margin:auto;" id="searchButton" onclick="fillter()">ค้นหาข้อมูล</button>
+                <button class="btn btn-danger rounded-pill" style="margin:auto;" id="searchButton" onclick="location.reload()">ล้างการค้นหา</button>
+           
+                </div>
+                <div class="card-body">
+        
+                  <table id="myTable" class="display">
+                      <thead>
+                          <tr>
+                            <th>No</th>
+                              <th>Type</th>
+                              <th>Code</th>
+                              <th>Job</th>
+                              <th>Description</th>
+                              <th>Note</th>
+                            
+                              <th>Status</th>
+                              <th id="th_row1">Create Date</th>
+                              <th id="th_row2">Complete Date</th>
+                              <th>(min)</th>
+                              <th id="th_row">User</th>
+                              <th>Asgn</th>
+                             
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in list_job %}
+                        <tr>
+                           <td>{{ forloop.counter }}</td>
+                          <td>{{i.Workdetail.WorkType.Worktype_name}}</td>
+                          <td>{{i.Workdetail.Workdetail_Code}}</td>
+                          <td>{{i.Customer.Customer_name}}</td>
+                          <td>{{i.jobdetial}}</td>
+                          <td>  {% if i.jobnote is None %}
+                                
+                            {% else %}
+                                {{ i.jobnote }}
+                            {% endif %}
+                          </td>       
+                          {% if i.status == 'NewTask'  %}
+                          <td>  <span class="badge bg-danger">New</span></td>
+                      
+                        {% elif i.status == 'Done' %}
+                            <!-- This content will be displayed if the condition is False -->
+                            <td>  <span class="badge bg-success">Done</span></td>
+                        {% else %}
+                            <td>  <span class="badge bg-secondary">Cancel</span></td>
+                        {% endif %}       
+                         
+                          <td>{{ i.create_at|date:"d/m/Y H:i" }}</td>
+                          
+                          <td>  {% if i.complete is None %}
+                                
+                                {% else %}
+                                    {{ i.complete|date:"d/m/Y H:i" }} 
+                                {% endif %}
+                          </td>          
+                          <td style="text-align: right">  {% if i.used is None %}
+                                
+                            {% else %}
+                            {{ i.used|floatformat:0 }}
+                            {% endif %}
+                          </td>
+                          <td>{{i.UserProfile.user.username}}</td>
+                          <td>{{i.UserProfile_assignment.codename}}</td>
+                           
+                         
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+
+
+<script>
+$(document).ready( function () {
+
+    var now = new Date();
+    now.setHours(now.getHours() + 7);
+    // Format the date to match the datetime-local input format (YYYY-MM-DDTHH:mm)
+    var formattedDate = now.toISOString().slice(0, 16);
+    
+    // Set the value of the input field
+    $('#bdate').val(formattedDate);
+
+    var table= $('#myTable').DataTable( {
+       "pageLength": 50,
+      columnDefs: [{ width: '12%', targets: [7,8] }],
+      dom: 'Bfrtip',
+      buttons: [
+      {
+        extend: 'excelHtml5',
+        text: 'Excel',
+        charset: 'UTF-8',
+        // Other options and customization
+    }
+      ],
+      responsive: true,
+      rowReorder: {
+        selector: 'td:nth-child(2)'
+    }
+    
+    
+  });  
+  
+  $('#myTable th#th_row').css('width', '20px');
+
+
+});
+
+
+function fillter () {
+$.ajax({
+url: '/todolist',
+method: 'GET',
+data: { action: 2 ,
+      start: $("#startdate").val(),
+      end: $("#enddate").val()
+},
+success: function(response) {
+  // Handle the response from the server
+  console.log( response);
+  var dataTable = $('#myTable').DataTable();
+  var cmd = 1;
+  dataTable.clear().draw();
+  response.list_job.forEach(function(element) {
+    console.log(element); // Perform any action you want with each element
+    var newData = []; // Replace with your actual data
+    newData.push(cmd);
+    cmd = cmd+1;
+    newData.push(element.Workdetail__WorkType__Worktype_name)
+    newData.push(element.Workdetail__Workdetail_Code)
+    newData.push(element.Customer__Customer_name)
+    newData.push(element.jobdetial)
+    newData.push(element.jobnote)
+    
+    if(element.status == "NewTask"){
+      newData.push('<span class="badge bg-danger">New</span>')
+    }else if(element.status = "Done"){
+      newData.push('<span class="badge bg-success">Done</span>')
+    }else{
+      newData.push('<span class="badge bg-secondary">Canncel</span>')
+    }
+    // Parse the original date string
+    const originalDate = new Date(element.create_at);
+
+    // Format the date to "DD/MM/YYYY HH:mm"
+    const formattedDate = `${originalDate.getDate()}/${originalDate.getMonth() + 1}/${originalDate.getFullYear()} ${originalDate.getHours()}:${originalDate.getMinutes()}`;
+    newData.push(formattedDate)
+   
+    if(element.complete == null){
+      newData.push(element.complete)
+    }else{
+      const originalDate = new Date(element.complete);
+
+      // Format the date to "DD/MM/YYYY"
+      const formattedDate = `${originalDate.getDate()}/${originalDate.getMonth() + 1}/${originalDate.getFullYear()}`;
+      newData.push(formattedDate);
+    }
+   
+    newData.push(element.used)
+
+    // newData.push('<div class="btn-group dropdown">'+
+    //  '<a class="btn icon btn-primary" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil"></i></a>'+
+    //  '<div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" >'+
+    //    '<a class="dropdown-item" onclick="editTask('+ element.Workhis_id +')">แก้ไข</a>'+
+     //   '<a class="dropdown-item" onclick="delete_data('+ element.Workhis_id +',\''+ element.Workdetail__Workdetail_Code +'\',\''+ formatDate(element.create_at) +'\')">ลบ</a>'+
+     // '</div>')
+     newData.push(element.UserProfile__user__username)
+     newData.push(element.UserProfile_assignment__codename)
+    dataTable.row.add(newData).draw();
+  })
+
+
+ // $("#Total").text(response.count.workhis_count+ " Unit");
+ // $("#Done").text(response.count.workhis_count_done + " Unit");
+ // $("#New").text(response.count.workhis_count_new+ " Unit");
+//  $("#Cancel").text(response.count.workhis_count_cancel+" Unit");
+},
+error: function(xhr, status, error) {
+  // Handle errors
+  console.log("Error: " + error);
+}
+});
+}
+</script>
+</div>
+
+{% endblock content%}

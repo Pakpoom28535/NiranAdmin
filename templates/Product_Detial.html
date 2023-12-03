@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+
+	.about1 {
+		padding-top: 120px;
+		padding-bottom: 165px;
+		overflow: hidden;
+		padding-top: 30px;
+		padding-bottom: 100px;
+	}
+
+
+.font-kanit, #menu-footer-links li, .wcpa_type_header *, .fusion-filter a, .widget.woocommerce .product-title, .woocommerce-thankyou-order-received, .single-product #main .product h1.product_title, .donate-desc .main-block h1, .donate-desc .main-block h4 {
+	font-family: Kanit, Arial, Helvetica, sans-serif !important;
+}
+.price {
+	font-weight: bold;
+}
+.donate-desc .main-block h1, .donate-desc .main-block h4, .fusion-filter.fusion-active a, .avada-customer-details .shop_table th[colspan="2"], #donateAuth dl dd, .wcpa_type_header h3, .fusion-faq-shortcode .fusion-accordian .fusion-toggle-boxed-mode:hover .panel-title a, .woocommerce-thankyou-order-received, #why-care .replace-h {
+	color: #16366b !important;
+}
+
+#donation-counter {
+	padding-top: 20px !important;
+	padding-bottom: 20px !important;
+}
+#donation-counter .tag-seed {
+	position: absolute; 
+	right: 0; 
+	top: 0;
+}
+#donation-counter *{
+	color: #fff;
+}
+#donation-counter #donation-update * {
+	font-size: 16px;
+	font-weight: 200;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+#donation-counter .title {
+	margin-bottom: 10px !important;
+}
+#donation-counter .counter-box-container {
+	border: none !important;
+	padding: 0;
+}
+#donation-counter .content-box-counter {
+	text-align: left;
+}
+#donation-counter .fusion-counters-box .fusion-counter-box {
+	padding: 0;
+}
+#donation-counter .fnd-col {
+	position: relative;
+}
+#donation-counter .fnd-title p {
+	font-weight: 200;
+	margin-bottom: 0px;
+}
+#donation-counter .fnd-title,
+#donation-counter .fnd-amount {
+	margin-left: 70px;
+}
+#donation-counter .fnd-title p span, 
+#donation-counter .fnd-amount {
+	color: #fff !important;
+}
+#donation-counter .fnd-title:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0px;
+	width: 60px;
+	height: 60px;
+	background-color: #fff;
+	background-position: center center;
+	background-size: 90% 90%;
+	background-repeat: no-repeat;
+	border-radius: 50%;
+	margin-bottom: 5px;
+}
+#donation-counter .fnd-title-cif:before,
+#donation-counter .fnd-title-rmf:before {
+	background-position: center 0px;
+}
+#donation-counter .fnd-title-unc:before {
+	background-position: center 5px;
+}
+#donation-counter .fnd-title-other:before {
+	background-image: url('images/charity-logo/cn.webp');
+	background-size: 70%;
+}
+#donation-counter .fnd-amount {
+	font-size: 28px;
+	line-height: 24px;
+	margin-top: 8px;
+}
+#donation-counter .fnd-amount span {
+	font-size: 70%;
+}
+#foundation-list .flexslider {
+    background-color: #eee;
+}
+#foundation-list .post {
+    margin-bottom: 30px;
+    float: left;
+}
+#foundation-contact-list .fontawesome-icon {
+	margin-right: 10px;
+}
+
+/* Single Product */
+
+.products {
+	margin-top: 10px !important;
+}
+.archive.term-card ul.products {
+	justify-content: center;
+}
+.product .entry-summary .summary-container {
+	float: none;
+	padding-top: 20px;
+}
+.product.product_cat-card .entry-summary .price {
+	display: none;
+}
+.product .related.products {
+	float: left;
+}
+.single-product #main .product h1.product_title {
+	font-size: 22px !important;
+	color: #333333;
+	margin-top: 15px;
+}
+.related.products {
+	background-color: white;
+	position: relative;
+	padding-top: 30px;
+}
+.related.products .fusion-title h2 {
+	font-size: 18px !important;
+}
+.product .product-border {
+	border: none !important;
+}
+.donate-desc {
+	position: relative;
+	
+	background-image: url(images/donate-desc-bg.jpg);
+	background-size: cover;
+}
+.donate-desc .main-block {
+	display: inline-block;
+	background-color: rgba(255,255,255,0.75);
+	padding: 20px;
+}
+.donate-desc .main-block h1,
+.donate-desc .main-block h4 {
+	margin: 0;
+}
+.donate-desc .main-block h1 {
+	font-size: 60px;
+	line-height: 60px;
+}
+.donate-desc .main-block h4 {
+	font-size: 28px;
+	line-height: 36px;
+}
+.donate-desc .main-block span {
+	font-weight: 200;
+	color: #000;
+	font-size: 20px;
+}
+.donate-desc .caption {
+	display: inline-block;
+	color: #fff;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+.donate-desc .caption span {
+	font-weight: 200;
+}
+.donate-desc ul.terms-list {
+/* 	position: absolute; */
+/* 	bottom: 0px; */
+	background-color: #eff0f0;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin: 0;
+}
+.donate-desc ul.terms-list li {
+	font-weight: 200;
+	font-size: 16px;
+	line-height: 20px;
+	margin-bottom: 5px;
+}
+.showlimit {
+	max-width: 355px;
+	max-height: 500px;
+}
+
+</style>
+<section class="py-5 ud-features" style=" background-color: #1b3431;"> 
+    <div class="container mt-5 p-5">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+						{% for i in list_img %}
+							{% if forloop.counter == 1 %}
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide 1"></button>
+							{% else %}
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide 2"></button>
+							{% endif %}
+						{% endfor %} 
+                    </div>
+                    <div class="carousel-inner">
+						{% for i in list_img %}
+							{% if forloop.counter == 1 %}
+							<div class="carousel-item active">
+								
+								<img src="/media/{{i.Product_Img}}" class="d-block mx-auto w-100 showlimit" alt="พวงหรีด">
+							</div>
+							{% else %}
+							<div class="carousel-item">
+						
+								<img src="/media/{{i.Product_Img}}" class="d-block mx-auto w-100 showlimit" alt="พวงหรีด">
+							</div>
+							{% endif %}
+						{% endfor %}
+                        
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" style="" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                
+            </div>
+
+		
+            <div class="col-lg-6 col-md-6 col-sm-5">
+                <div class="summary-container"><h3 itemprop="name" class="product_title entry-title">นิรันดร์ พวงหรีดรักษ์โลก (NR1001)</h3>
+                    <p class="price"><span class="woocommerce-Price-amount amount"><bdi>4,000&nbsp;<span class="woocommerce-Price-currencySymbol">฿</span></bdi></span></p><p></p>
+                    <div class="donate-desc mt-2">
+
+                            <h4 class="terms-list p-2" style="   background-image: url('/static/assets/images/niranImg/SY_bg.png');    background-size: cover; background-position: center;" >
+								<span>ทุกการสั่งซื้อพวงหลีดจากนิรันดร์<br>ได้สมทบ 50 บาท</span><br>เป็นทุนการศึกษา<br>แก่บุตรผู้พิทักป่าในมูลนิธิสืบนาคะเสถียร
+							</h4>
+							<ul class="terms-list">
+								<ul class="uk-list uk-list-disc text-black">
+									<li>สามารถเลือกมูลนิธิได้</li>
+									<li>สามารถนำไปบริจาคต่อได้เป็นผ้าห่อศพ 5 ผืน</li>
+									<li>จัดส่งฟรีทั่ว กทม.</li>
+								</ul>
+							</ul>
+                    </div>
+                </div>
+				<form  method="post" enctype="multipart/form-data"  id="reqeust_id">
+					{% csrf_token %}
+					{% comment %} <h5 class="mt-2" style=" color: #0141b8;">ข้อมูลแสดงบนพวงหลีด</h5> {% endcomment %}
+					<div class="form-group mt-2">
+						<label for="itemcode">ข้อความบรรทัดที่ 1</label>
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="text1" value="" required="required">
+					</div>
+					<div class="form-group mt-2">
+						<label for="itemcode">ข้อความบรรทัดที่ 2</label>
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="text2" value="" required="required">
+					</div>
+					<div class="form-group mt-2">
+						<label for="itemcode">รูปภาพ หรือโลโก้</label><br>
+						<small >*โลโก้จะถูกจัดวางลงในป้ายจริง</small>
+						<input type="file" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="img" value="" required="required">
+					</div>
+					{% comment %} <h5 class="mt-2" style=" color: #0141b8;">สถานที่จัดส่งพวงหรีด</h5> {% endcomment %}
+					<div class="form-group mt-2">
+						<label for="exampleFormControlTextarea1">ที่อยู่จัดสงสินค้า</label>
+						<textarea class="form-control mt-1" id="exampleFormControlTextarea1" name="description" rows="3"  required="required"></textarea>
+					</div>
+					<div class="form-group mt-2">
+						<label for="itemcode">ชื่อผู้วายชนม์</label>
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อ-สกุล ผู้เสียชีวิต" class="form-control " name="name" value="" required="required">
+					</div>
+					{% comment %} <h5 class="mt-2" style=" color: #0141b8;">วันและเวลาที่จัดส่ง</h5> {% endcomment %}
+					<div  class="mt-1">
+						<small>วันที่จัดส่ง**กรุณาระบุเวลาจัดส่งหลังจาก 10.00 น.เป็นต้นไป หากต้องการให้จัดส่งในช่วงรอบเช้า (08.00-10.00น.) กรุณาโทรแจ้งล่วงหน้าก่อนค่ะ *พื้นที่จังหวัดสมุทรสาคร ไม่สามารถจัดส่งได้ในวันเสาร์-อาทิตย์</small>
+					</div>
+					
+					<div class="form-group mt-2">
+						<label for="itemcode">ข้อมูลจัดส่งเพิ่มเติมเช่น ส่งช่วงเช้า ส่งตอนเที่ยง...</label>
+						<textarea class="form-control mt-1" id="exampleFormControlTextarea1" name="moreinfo" rows="3"></textarea>
+					</div>
+					<div class="text-end mt-5">	<button class="btn btn-warning rounded-pill" style="margin:auto;" id="searchButton" type="submit">หยิบใส่ตระกล้า</button></div>
+				
+				</form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content%}

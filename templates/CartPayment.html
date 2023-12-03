@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<style>
+
+    .custom-link {
+        color: #FFA500; /* Set the color to your desired color (e.g., orange) */
+        text-decoration: none; /* Remove the default underline */
+    }
+
+    .custom-link:hover {
+        color: #FFD700; /* Set the color for the link when hovered (e.g., gold) */
+    }
+
+    /* *,::after,::before{
+        box-sizing: border-box;
+    }
+    .amount-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } */
+
+    .shopping-cart{
+	padding-bottom: 50px;
+	border-radius: 10px;
+    background-color: inherit;
+}
+
+.shopping-cart.dark{
+	background-color: #f6f6f6;
+}
+
+.shopping-cart .content{
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+	background-color: white;
+}
+
+.shopping-cart .add-more{
+    padding-top: 20px;
+}
+
+.shopping-cart .block-heading{
+    padding-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.shopping-cart .block-heading p{
+	text-align: center;
+	max-width: 420px;
+	margin: auto;
+	opacity:0.7;
+}
+
+.shopping-cart .dark .block-heading p{
+	opacity:0.8;
+}
+
+.shopping-cart .block-heading h1,
+.shopping-cart .block-heading h2,
+.shopping-cart .block-heading h3 {
+    font-family: 'Kanit', sans-serif;
+	margin-bottom:1.2rem;
+	color: #3b99e0;
+}
+
+.shopping-cart .items{
+	margin: auto;
+    border-radius: 5px;
+}
+
+
+
+.shopping-cart .items .product{
+	/* margin-bottom: 1rem; */
+	/* padding-top: 2rem; */
+	padding-bottom: 2rem;
+}
+
+.shopping-cart .items .product .info{
+	padding-top: 0px;
+	text-align: center;
+}
+
+.shopping-cart .items .product .info .product-name{
+	font-weight: 600;
+}
+
+.shopping-cart .items .product .info .product-name .product-info{
+	font-size: 14px;
+	margin-top: 15px;
+    color: #1b3431;
+}
+
+.shopping-cart .items .product .info .product-name .product-info .value{
+	font-weight: 400;
+    color: #000000;
+}
+
+.shopping-cart .items .product .info .quantity .quantity-input{
+    margin: auto;
+    width: 80px;
+}
+
+.shopping-cart .items .product .info .price{
+	margin-top: 15px;
+    font-weight: bold;
+    font-size: 22px;
+ }
+
+.shopping-cart .summary{
+	border-top: 5px solid #dea567;
+    background-color: #1b3431;
+    height: 100%;
+    padding: 30px;
+}
+
+.shopping-cart .summary h3{
+	text-align: center;
+	font-size: 1.3em;
+	font-weight: 600;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.shopping-cart .summary .summary-item:not(:last-of-type){
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-bottom: 1px solid #dea567;
+}
+
+.shopping-cart .summary .text{
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.shopping-cart .summary .price{
+	font-size: 1em;
+	float: right;
+}
+
+.shopping-cart .summary button{
+	margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+	.shopping-cart .items .product .info {
+		padding-top: 25px;
+		text-align: left; 
+	}
+
+	.shopping-cart .items .product .info .price {
+		font-weight: bold;
+		font-size: 18px;
+		top: 17px; 
+	}
+
+	.shopping-cart .items .product .info .quantity {
+		text-align: center; 
+	}
+	.shopping-cart .items .product .info .quantity .quantity-input {
+		padding: 4px 10px;
+		text-align: center; 
+	}
+}
+</style>
+<section class="py-5 ud-features">
+    <div class="container-fluid px-4 px-lg-5 mt-5" style="padding-top: 6rem;">
+       
+        <section class="shopping-cart dark">
+        
+            <div class="container">
+               
+               <div class="block-heading">
+                 <h2 style="color: #1b3431;">ช่องทางการชำระเงิน</h2>
+                 <hr class="mt-0 line " style="color: #1b3431; border: 10px;">
+               </div>
+            </div>
+            <div class="container d-flex justify-content-center mt-5 mb-5">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <span style="color: #1b3431;">ช่องทางการชำระเงิน</span>
+                        <div class="card">
+                          <div class="p-3">
+                            <div class="d-flex mb-2">
+                              <span style="color: #1b3431;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ขอบคุณและขออนุโมทนาบุญที่ท่านได้ทำบุญผ่าน Nirun นะคะ โปรดเปิดแอปพลิเคชั่นธนาคารบนมือถือเพื่อสแกน QR Code หรือ
+                                    capture screen QR Code นี้ เพื่อเปิดใช้ในแอปพลิเคชันธนาคารบนมือถือของคุณ หากโอนแล้วรบกวนส่งหลักฐานการโอนเงินมาที่
+                                    Line ID : @niranwreath เพื่อที่เราจะได้ส่งรูปพวงหรีดมาให้ท่านก่อนส่งคะ
+                              </span>
+                            </div>
+                          </div>
+                          <hr class="mt-0 line">
+                          <div class="p-3 d-flex justify-content-center">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <img src="{%static 'assets/images/niranImg/qrcode-demo.png' %}" style="width: 80%;" alt="">
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                  <div class="col-md-6">
+                    <span style="color: #1b3431;">ช่องทางการส่งหลักฐานการชำระเงิน</span>
+                    <div class="card">
+                        <div class="p-3">
+
+                            <div class="d-flex justify-content-between mb-2">
+                              <span style="color: #1b3431;">เลขที่คำสั่งซื้อ</span>
+                              <span style="color: #3b99e0;">N00342</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                              <span style="color: #1b3431;">วันที่สั่งซื้อ</span>
+                              <span style="color: #3b99e0;">25/11/2023</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="color: #1b3431;">ยอดรวมทั้งหมด</span>
+                                <span style="color: #3b99e0;">3200 บาท</span>
+                              </div>
+                              <div class="d-flex justify-content-between mb-2">
+                                <span style="color: #1b3431;">ช่องทางการชำระเงิน</span>
+                                <span style="color:#3b99e0;">Promptpay</span>
+                              </div>
+                          </div>
+                        <div class="card">
+                            <div class="card-body payment-card-body">
+                                <p style="color: #1b3431;">โปรดส่งหลักฐานการชำระเงินมาที่</p>
+                                <div class="payment-button">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a class="btn btn-outline-success" style="width: 100%;" href='https://lin.ee/KpuPbQ0' target="black_"><p><img src="{%static 'assets/images/niranImg/LINE_logo.png' %}" style="width: 1.5rem;" alt=""> Line ID : @niranwreath </p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-center p-5">
+                                <img src="{%static 'assets/images/niranImg/logo1.png' %}" style="width: 40%;" alt="">
+                            </div>
+                        </div>
+                    </div>
+            
+                  </div>
+                </div>
+              </div>
+       </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- ====== Contact End ====== -->
+
+     <div class="ud-pricing wow fadeInUp" data-wow-delay=".15s">
+        <div class="container text-center">
+          <div class="row">
+                <div class="col-12 col-lg-12">
+                  <a href="index.html" class="ud-footer-logo">
+                    <img src="{% static 'assets/images/niranImg/logo.png' %}" style="height: auto; width: 30%;" alt="logo" />
+                  </a>
+                  <p class="ud-widget-desc" style="font-size: 6vh;     line-height: 50px;">
+                    นิรันดร์ พวงหรีดรักษ์โลก
+                  </p>
+                </div>
+                <div class="col-12 col-lg-12 mt-5">
+                  <div class="ud-widget">
+          
+                    <ul class="ud-widget-socials d-flex justify-content-center">
+                      <li>
+                        <a href="https://www.facebook.com/niran.officialth/">
+                          <i class="lni lni-facebook-filled" style="font-size: 2em;"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.instagram.com/niranwreath/">
+                          <i class="lni lni-instagram-filled" style="font-size: 2em;"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://lin.ee/KpuPbQ0">
+                          <img src="{% static 'assets/images/niranImg/icons/line-black.png' %}" style="height: auto; width: 2rem;" alt="logo" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+        </div>
+    </section>
+    <script>
+      let qty = document.querySelector("#qtyInput");
+      function decrement(){
+        if (qty.value <= 1){
+            qty.value =1;
+        }else {
+            qty.value = parseInt(qty.value) - 1;
+        }
+      }
+    
+      function increment(){
+        qty.value = parseInt(qty.value) + 1;
+      }
+    </script>
+    
+    {% endblock content%}
