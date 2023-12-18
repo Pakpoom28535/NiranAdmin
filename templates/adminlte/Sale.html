@@ -2,7 +2,9 @@
 
 {% block content %}
 {% load static %}
-
+<a href="#" class="burger-btn d-block d-xl-none p-4">
+  <i class="bi bi-justify fs-3"></i>
+</a>
 <div id="main">
 
     <div class="page-content">
@@ -22,22 +24,7 @@
             <div class="card">
                 <div class="card-header">
                   <h4>ตารางรายการงานและรายละเอียด</h4>
-                  <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="fname">วันที่เริ่มต้น</label>
-                            <input type="date" value="{{count.start}}" class="form-control" id="startdate" name="startdate"  Required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="fname">วันที่สิ้นสุด</label>
-                            <input type="date" value = "{{count.end}}"class="form-control" id="enddate" name="enddate"  Required>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-primary rounded-pill" style="margin:auto;" id="searchButton" onclick="fillter()">ค้นหาข้อมูล</button>
-                <button class="btn btn-danger rounded-pill" style="margin:auto;" id="searchButton" onclick="location.reload()">ล้างการค้นหา</button>
+            
            
                 </div>
                 <div class="card-body">
@@ -45,63 +32,49 @@
                   <table id="myTable" class="display">
                       <thead>
                           <tr>
-                            <th>No</th>
-                              <th>Type</th>
-                              <th>Code</th>
-                              <th>Job</th>
-                              <th>Description</th>
-                              <th>Note</th>
-                            
+                              <th>OrderCode</th>
+                              <th>แบบพวงหลีด</th>
+                              <th>วันที่ทำการสั่งซื้อ</th>
+                              <th>ราคา</th>
+                              <th>จำนวน</th>
+                              <th>ยอดจ่าย</th>
+                              <th>ชื่อผู้วายชนม์</th>
+                              <th>ชื่อผู้ติดต่อ</th>
+                              <th>เบอร์โทรติดต่อ</th>
                               <th>Status</th>
-                              <th id="th_row1">Create Date</th>
-                              <th id="th_row2">Complete Date</th>
-                              <th>(min)</th>
-                              <th id="th_row">User</th>
-                              <th>Asgn</th>
-                             
+                              <th>เมนูจัดการ</th>
                           </tr>
                       </thead>
                       <tbody>
-                        {% for i in list_job %}
+                        {% for i in list_data %}
                         <tr>
-                           <td>{{ forloop.counter }}</td>
-                          <td>{{i.Workdetail.WorkType.Worktype_name}}</td>
-                          <td>{{i.Workdetail.Workdetail_Code}}</td>
-                          <td>{{i.Customer.Customer_name}}</td>
-                          <td>{{i.jobdetial}}</td>
-                          <td>  {% if i.jobnote is None %}
-                                
-                            {% else %}
-                                {{ i.jobnote }}
-                            {% endif %}
-                          </td>       
-                          {% if i.status == 'NewTask'  %}
-                          <td>  <span class="badge bg-danger">New</span></td>
-                      
-                        {% elif i.status == 'Done' %}
-                            <!-- This content will be displayed if the condition is False -->
-                            <td>  <span class="badge bg-success">Done</span></td>
-                        {% else %}
-                            <td>  <span class="badge bg-secondary">Cancel</span></td>
-                        {% endif %}       
+                           <td>{{ i.Order_code }}</td>
+                          <td>{{i.product.Product_Code}}</td>
+                          <td>{{i.create_at | date:"d/m/Y H:i"}}</td>
+                          <td>{{i.product.Product_Price}}</td>
+                          <td>{{i.qty}}</td>
+                          <td>{{i.total}}</td>       
+                          <td>{{i.t4}}</td>  
+                          <td>{{i.t7}}</td>  
+                          <td>{{i.t6}}</td>  
+                          {% if i.status %}
                          
-                          <td>{{ i.create_at|date:"d/m/Y H:i" }}</td>
+                          <td> <span class="badge bg-success">ยืนยันสำเร็จ</span></td>
+                          {% elif i.status == None   %}
+                          <td> <span class="badge bg-warning">รอตรวสอบสถานะ</span></td>
+                          {% else %}
+                          <td> <span class="badge bg-danger">ยกเลิกคำสั่งซื้อ</span></td>
+                         
+                          {% endif %}       
+                         
+                        <td><div class="btn-group dropdown">
+                          <a class="btn icon btn-primary" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil"></i></a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" >
+                            <a class="dropdown-item" onclick="change_status({{i.Order_id}})">ปรับสถาณะ</a>
+                            <a class="dropdown-item" href="orderdeital/{{i.Order_id}}" target="_blank">ดูรายละเอียด</a>
                           
-                          <td>  {% if i.complete is None %}
-                                
-                                {% else %}
-                                    {{ i.complete|date:"d/m/Y H:i" }} 
-                                {% endif %}
-                          </td>          
-                          <td style="text-align: right">  {% if i.used is None %}
-                                
-                            {% else %}
-                            {{ i.used|floatformat:0 }}
-                            {% endif %}
-                          </td>
-                          <td>{{i.UserProfile.user.username}}</td>
-                          <td>{{i.UserProfile_assignment.codename}}</td>
-                           
+                          </div>
+                      </div></td>
                          
                       </tr>
                       {% endfor %}
@@ -110,10 +83,45 @@
                 </div>
               </div>
         </div>
-
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">ปรับสถาณะยืนยันคำสั่งสินค้า</h5>
+        <button type="button" class="close" data-dismiss="modal" onclick="$('#exampleModalCenter').modal('toggle');">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+          <div class="form-check form-check-inline  ">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="true">
+            <label class="form-check-label" for="inlineRadio1">ยืนยันคำสั่งซื้อ</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="false">
+            <label class="form-check-label" for="inlineRadio2">ยกเลิกคำสั่งซื้อ</label>
+          </div>
+          <input type="text" id="order_id" hidden>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="$('#exampleModalCenter').modal('toggle');">Close</button>
+        <button type="button" class="btn btn-primary" onclick="change_save()">Save changes</button>
+      </div>
+    </div>
+  </div>
 <script>
+ var selectedValue = false;
 $(document).ready( function () {
+      $('input[name="inlineRadioOptions"]').on('change', function () {
+        // Get the selected value
+        selectedValue   = $('input[name="inlineRadioOptions"]:checked').val();
+        
+        // Display the selected value in the console (you can modify this part based on your needs)
+        console.log("Selected Value: " + selectedValue);
+    });
+
 
     var now = new Date();
     now.setHours(now.getHours() + 7);
@@ -125,7 +133,7 @@ $(document).ready( function () {
 
     var table= $('#myTable').DataTable( {
        "pageLength": 50,
-      columnDefs: [{ width: '12%', targets: [7,8] }],
+       order: [[2, 'desc']] ,
       dom: 'Bfrtip',
       buttons: [
       {
@@ -149,79 +157,51 @@ $(document).ready( function () {
 });
 
 
-function fillter () {
-$.ajax({
-url: '/todolist',
-method: 'GET',
-data: { action: 2 ,
-      start: $("#startdate").val(),
-      end: $("#enddate").val()
-},
-success: function(response) {
-  // Handle the response from the server
-  console.log( response);
-  var dataTable = $('#myTable').DataTable();
-  var cmd = 1;
-  dataTable.clear().draw();
-  response.list_job.forEach(function(element) {
-    console.log(element); // Perform any action you want with each element
-    var newData = []; // Replace with your actual data
-    newData.push(cmd);
-    cmd = cmd+1;
-    newData.push(element.Workdetail__WorkType__Worktype_name)
-    newData.push(element.Workdetail__Workdetail_Code)
-    newData.push(element.Customer__Customer_name)
-    newData.push(element.jobdetial)
-    newData.push(element.jobnote)
-    
-    if(element.status == "NewTask"){
-      newData.push('<span class="badge bg-danger">New</span>')
-    }else if(element.status = "Done"){
-      newData.push('<span class="badge bg-success">Done</span>')
-    }else{
-      newData.push('<span class="badge bg-secondary">Canncel</span>')
-    }
-    // Parse the original date string
-    const originalDate = new Date(element.create_at);
 
-    // Format the date to "DD/MM/YYYY HH:mm"
-    const formattedDate = `${originalDate.getDate()}/${originalDate.getMonth() + 1}/${originalDate.getFullYear()} ${originalDate.getHours()}:${originalDate.getMinutes()}`;
-    newData.push(formattedDate)
-   
-    if(element.complete == null){
-      newData.push(element.complete)
-    }else{
-      const originalDate = new Date(element.complete);
+let   order_id = 0;
+function change_status(id){
 
-      // Format the date to "DD/MM/YYYY"
-      const formattedDate = `${originalDate.getDate()}/${originalDate.getMonth() + 1}/${originalDate.getFullYear()}`;
-      newData.push(formattedDate);
-    }
-   
-    newData.push(element.used)
-
-    // newData.push('<div class="btn-group dropdown">'+
-    //  '<a class="btn icon btn-primary" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-pencil"></i></a>'+
-    //  '<div class="dropdown-menu" aria-labelledby="dropdownMenuOffset" >'+
-    //    '<a class="dropdown-item" onclick="editTask('+ element.Workhis_id +')">แก้ไข</a>'+
-     //   '<a class="dropdown-item" onclick="delete_data('+ element.Workhis_id +',\''+ element.Workdetail__Workdetail_Code +'\',\''+ formatDate(element.create_at) +'\')">ลบ</a>'+
-     // '</div>')
-     newData.push(element.UserProfile__user__username)
-     newData.push(element.UserProfile_assignment__codename)
-    dataTable.row.add(newData).draw();
-  })
-
-
- // $("#Total").text(response.count.workhis_count+ " Unit");
- // $("#Done").text(response.count.workhis_count_done + " Unit");
- // $("#New").text(response.count.workhis_count_new+ " Unit");
-//  $("#Cancel").text(response.count.workhis_count_cancel+" Unit");
-},
-error: function(xhr, status, error) {
-  // Handle errors
-  console.log("Error: " + error);
+  $('#exampleModalCenter').modal('show'); 
+  order_id = id;
 }
-});
+
+function change_save(){
+      
+  $.ajax({
+    type: "POST",
+    url: "/sale", 
+    dataType: 'json',
+        async: false,
+        //json object to sent to the authentication url
+        data: {
+           csrfmiddlewaretoken: '{{ csrf_token }}' ,
+           "action":"change",
+           "order_id": order_id,
+           "status": selectedValue
+
+        },
+    success: function(response) {
+    // Handle the response from the server
+    Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: 'บันทึกข้อมูลสำเร็จ',  // Display the first message
+      showConfirmButton: false, // This will remove the "OK" button
+  });
+        // After 5 seconds, reload the page
+        setTimeout(function () {
+          location.reload();
+      }, 2000); // 3000 milliseconds = 3 seconds
+    },
+    error: function(xhr, status, error) {
+    // Handle errors
+    console.log("Error: " + error);
+    }
+    });
+}
+
+function show_detial(Order_code){
+  window.open(url, '_blank');
 }
 </script>
 </div>

@@ -32,3 +32,23 @@ class Shipping_Price(models.Model):
     Shipping_Price = models.IntegerField()
     def __str__(self):
         return self.Shipping_Price
+
+
+class Orderhis(models.Model):
+    Order_id = models.AutoField(primary_key=True)
+    Order_code = models.CharField(max_length=255)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE, null=True)
+    t1 = models.CharField(max_length=255,null=True)
+    t2 = models.CharField(max_length=255,null=True)
+    log_img =  models.ImageField(upload_to='order/')  # 'reports/' is the directory where images will be stored
+    color = models.CharField(max_length=255,null=True)
+    t3 = models.TextField(null=True)
+    t4 = models.CharField(max_length=255,null=True)
+    t5 = models.TextField(null=True)
+    t6 = models.CharField(max_length=255,null=True)
+    t7 = models.CharField(max_length=255,null=True)
+    qty = models.IntegerField(null=True)
+    total = models.IntegerField(null=True)
+    create_at = models.DateTimeField()
+    status = models.BooleanField(null=True)
+    status_change = models.DateTimeField(null=True)

@@ -42,7 +42,11 @@
       width: 100%;
   }
 </style>
+<a href="#" class="burger-btn d-block d-xl-none p-4">
+  <i class="bi bi-justify fs-3"></i>
+</a>
 <div id="main">
+
     <div class="page-heading">
         <h3>Add a new Product</h3>
         <nav aria-label="breadcrumb">
@@ -52,6 +56,7 @@
             </ol>
           </nav>
     </div>
+    
     <div class="page-content">
         
    
@@ -103,7 +108,7 @@
                                                 <div class="btn btn-primary btn-rounded">
                                                     <label class="form-label text-white m-1" for="customFile1">เพิ่มรูปภาพ1</label>
                                         
-                                                    <input type="file" onchange="readURL(this);" value=""  class="form-control" id="customFile1" name="imgReport" required/>
+                                                    <input type="file" onchange="readURL(this);" value=""  class="form-control d-none" id="customFile1" name="imgReport" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +123,7 @@
                                                 <div class="btn btn-primary btn-rounded">
                                                     <label class="form-label text-white m-1" for="customFile2">เพิ่มรูปภาพ2</label>
                                         
-                                                    <input type="file" onchange="readdata(this);" value=""  class="form-control" id="customFile2" name="imgReport2"/>
+                                                    <input type="file" onchange="readdata(this);" value=""  class="form-control d-none" id="customFile2" name="imgReport2"/>
                                                 </div>
                                             </div>
                                         </div>

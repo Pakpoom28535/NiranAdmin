@@ -199,16 +199,21 @@
 	margin-bottom: 5px;
 }
 .showlimit {
-	max-width: 355px;
-	max-height: 500px;
+	max-width: 555px;
+	max-height: 700px;
 }
-
+@media only screen and (max-width: 1117px) {
+    .showlimit {
+        max-width: 355px;
+        max-height: 700px;
+    }
+}
 </style>
 <section class="py-5 ud-features" style=" background-color: #1b3431;"> 
     <div class="container mt-5 p-5">
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-5">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="height:auto;">
                     <div class="carousel-indicators">
 						{% for i in list_img %}
 							{% if forloop.counter == 1 %}
@@ -223,12 +228,12 @@
 							{% if forloop.counter == 1 %}
 							<div class="carousel-item active">
 								
-								<img src="/media/{{i.Product_Img}}" class="d-block mx-auto w-100 showlimit" alt="พวงหรีด">
+								<img src="/media/{{i.Product_Img}}" class="d-block mx-auto  showlimit" alt="พวงหรีด">
 							</div>
 							{% else %}
 							<div class="carousel-item">
 						
-								<img src="/media/{{i.Product_Img}}" class="d-block mx-auto w-100 showlimit" alt="พวงหรีด">
+								<img src="/media/{{i.Product_Img}}" class="d-block mx-auto  showlimit" alt="พวงหรีด">
 							</div>
 							{% endif %}
 						{% endfor %}
@@ -248,18 +253,18 @@
 
 		
             <div class="col-lg-6 col-md-6 col-sm-5">
-                <div class="summary-container"><h3 itemprop="name" class="product_title entry-title">นิรันดร์ พวงหรีดรักษ์โลก (NR1001)</h3>
-                    <p class="price"><span class="woocommerce-Price-amount amount"><bdi>4,000&nbsp;<span class="woocommerce-Price-currencySymbol">฿</span></bdi></span></p><p></p>
+                <div class="summary-container"><h3 itemprop="name" class="product_title entry-title">{{Product.Product_Code}}</h3>
+                    <p class="price"><span class="woocommerce-Price-amount amount" ><span style="font-size:1.5rem;"> {{Product.Product_Price}} &nbsp;<span class="woocommerce-Price-currencySymbol">฿</span></span></span></p><p></p>
                     <div class="donate-desc mt-2">
 
-                            <h4 class="terms-list p-2" style="   background-image: url('/static/assets/images/niranImg/SY_bg.png');    background-size: cover; background-position: center;" >
-								<span>ทุกการสั่งซื้อพวงหลีดจากนิรันดร์<br>ได้สมทบ 50 บาท</span><br>เป็นทุนการศึกษา<br>แก่บุตรผู้พิทักป่าในมูลนิธิสืบนาคะเสถียร
-							</h4>
+                            <p class="terms-list p-2 " style="   background-image: url('/static/assets/images/niranImg/SY_bg.png');    background-size: cover; background-position: center; font-size:22px;" >
+								<span>ทุกการสั่งซื้อพวงหลีดจากนิรันดร์ได้สมทบ 50 บาท เป็นทุนการศึกษาแก่บุตรผู้พิทักป่าในมูลนิธิสืบนาคะเสถียร</span>
+							</p>
 							<ul class="terms-list">
 								<ul class="uk-list uk-list-disc text-black">
-									<li>สามารถเลือกมูลนิธิได้</li>
+									
 									<li>สามารถนำไปบริจาคต่อได้เป็นผ้าห่อศพ 5 ผืน</li>
-									<li>จัดส่งฟรีทั่ว กทม.</li>
+									<li>จัดส่งฟรีทั่ว กรุงเทพมหานครและปริมณฑล ส่งต่างจังหวัดรบกวนติดต่อทางไลน์</li>
 								</ul>
 							</ul>
                     </div>
@@ -269,34 +274,63 @@
 					{% comment %} <h5 class="mt-2" style=" color: #0141b8;">ข้อมูลแสดงบนพวงหลีด</h5> {% endcomment %}
 					<div class="form-group mt-2">
 						<label for="itemcode">ข้อความบรรทัดที่ 1</label>
-						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="text1" value="" required="required">
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="t1" value="" required="required">
 					</div>
 					<div class="form-group mt-2">
 						<label for="itemcode">ข้อความบรรทัดที่ 2</label>
-						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="text2" value="" required="required">
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="t2" value="" required="required">
 					</div>
 					<div class="form-group mt-2">
 						<label for="itemcode">รูปภาพ หรือโลโก้</label><br>
-						<small >*โลโก้จะถูกจัดวางลงในป้ายจริง</small>
-						<input type="file" id="text-1536825593080" placeholder="*ชื่อผู้ให้ (ไม่ควรเกิน 35 ตัวอักษร)" class="form-control " name="img" value="" required="required">
+						<small >*โลโก้จะถูกจัดวางลงในป้ายจริง ต้องเป็นไฟล์ PNG ถ้าลูกค้าต้องการใส่โลโก้พื้นหลังป้ายจะเลือกได้แค่ ขาวหรือดำค่ะ ถ้าไม่ระบุทางร้านจะเป็นคนเลือกให้ค่ะ</small>
+						<input type="file" name="img" class="form-control" >
+					</div>
+					<div class="form-group mt-2">
+						<label for="itemcode">สีพื้นหลังป้าย</label><br>
+						<div class="form-check" >
+							<input class="form-check-input" type="radio" name="color"  value = "ดำ" id="flexRadioDefault1" checked>
+							<label class="form-check-label" for="flexRadioDefault1">
+							  ดำ
+							</label>
+						  </div>
+						  <div class="form-check">
+							<input class="form-check-input" type="radio" name="color"   value = "ขาว" id="flexRadioDefault2">
+							<label class="form-check-label" for="flexRadioDefault2">
+							  ขาว
+							</label>
+						  </div>
+						  <div class="form-check">
+							<input class="form-check-input" type="radio" name="color"   value = "เขียว" id="flexRadioDefault3">
+							<label class="form-check-label" for="flexRadioDefault2">
+							  เขียว (ตามตัวอย่าง)
+							</label>
+						  </div>
+						
 					</div>
 					{% comment %} <h5 class="mt-2" style=" color: #0141b8;">สถานที่จัดส่งพวงหรีด</h5> {% endcomment %}
 					<div class="form-group mt-2">
-						<label for="exampleFormControlTextarea1">ที่อยู่จัดสงสินค้า</label>
-						<textarea class="form-control mt-1" id="exampleFormControlTextarea1" name="description" rows="3"  required="required"></textarea>
+						<label for="exampleFormControlTextarea1">ที่อยู่จัดสงสินค้า โปรดระบุชื่อวัดและศาลา</label>
+						<textarea class="form-control mt-1" id="exampleFormControlTextarea1" name="t3" rows="3"  required="required"></textarea>
 					</div>
 					<div class="form-group mt-2">
 						<label for="itemcode">ชื่อผู้วายชนม์</label>
-						<input type="text" id="text-1536825593080" placeholder="*ชื่อ-สกุล ผู้เสียชีวิต" class="form-control " name="name" value="" required="required">
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อ-สกุล ผู้เสียชีวิต" class="form-control " name="t4"  required="required">
 					</div>
 					{% comment %} <h5 class="mt-2" style=" color: #0141b8;">วันและเวลาที่จัดส่ง</h5> {% endcomment %}
 					<div  class="mt-1">
-						<small>วันที่จัดส่ง**กรุณาระบุเวลาจัดส่งหลังจาก 10.00 น.เป็นต้นไป หากต้องการให้จัดส่งในช่วงรอบเช้า (08.00-10.00น.) กรุณาโทรแจ้งล่วงหน้าก่อนค่ะ *พื้นที่จังหวัดสมุทรสาคร ไม่สามารถจัดส่งได้ในวันเสาร์-อาทิตย์</small>
+						<small>เพื่อจัดส่งในวันเดียวกัน (เฉพาะกรุงเทพ และปริมณฑล) ลูกค้าต้องโอนเงินและส่งหลักฐานมาทางไลน์ก่อน 14.30 ในแต่ละวัน การโอนหลัง 14.30 จะดำเนินการจัดส่งในวันถัดไป หรือถ้าให้ส่งวันอื่นโปรดแจ้งมาในไลน์ค่ะ</small>
 					</div>
-					
 					<div class="form-group mt-2">
-						<label for="itemcode">ข้อมูลจัดส่งเพิ่มเติมเช่น ส่งช่วงเช้า ส่งตอนเที่ยง...</label>
-						<textarea class="form-control mt-1" id="exampleFormControlTextarea1" name="moreinfo" rows="3"></textarea>
+						<label for="itemcode">ชื่อผู้ติดต่อ</label>
+						<input type="text" id="text-1536825593080" placeholder="*ชื่อผู้ติดต่อ" class="form-control " name="t7"  required="required">
+					</div>
+					<div class="form-group mt-2">
+						<label for="itemcode">เบอร์โทรติดต่อ</label>
+						<input type="text" id="text-1536825593080" placeholder="*เบอร์โทรติดต่อ" class="form-control " name="t6"  required="required">
+					</div>
+					<div class="form-group mt-2">
+						<label for="itemcode">ข้อมูลอื่นๆ เพิ่มเติม</label>
+						<textarea class="form-control mt-1" id="exampleFormControlTextarea1" name="t5" rows="3"></textarea>
 					</div>
 					<div class="text-end mt-5">	<button class="btn btn-warning rounded-pill" style="margin:auto;" id="searchButton" type="submit">หยิบใส่ตระกล้า</button></div>
 				

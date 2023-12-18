@@ -99,7 +99,7 @@
 
 .shopping-cart .items .product .info .product-name .product-info .value{
 	font-weight: 400;
-    color: #000000;
+    color: var(--heading-color);
     text-align: left;
     padding: 5px;
 }
@@ -169,56 +169,85 @@
 		padding: 4px 10px;
 		text-align: center; 
 	}
+    /* Add your regular styles with 'p-5' class */
+.pdcs {
+  padding: 1.25rem; /* Or any default padding value */
+}
+
+/* Remove 'p-5' class for screens with a maximum width of 767 pixels (typical mobile devices) */
+@media (max-width: 767px) {
+  .pdcs {
+    padding: 0; /* Remove padding for mobile devices */
+  }
+}
+
 }
 </style>
    <section class="py-5 ud-features">
-    <div class="container-fluid px-4 px-lg-5 mt-5" style="padding-top: 6rem;">
+    <div class="container-fluid px-4 px-lg-5 mt-3" style="padding-top: 6rem;">
        
         <section class="shopping-cart dark">
         
-            <div class="container">
+            <div class="container-fluid pdcs" >
 
                <div class="block-heading">
-                 <h2 style="color:#d78e3e;" >ตระกร้าสินค้า</h2>
+                 <h2 style="color:#d78e3e;" >รายการพวงหรีดที่ท่านเลือก</h2>
                  <p style="color: #000000;">คุณมีของในตระกร้าสินค้า  <span style="color:#0d6efd;; font-weight: 1000;">1</span> รายการ</p>
                </div>
-               <div class="content">
+               <div class="content" style="background-color: #1b3431; ">
+                <form  method="post" enctype="multipart/form-data" >
+					{% csrf_token %}
                     <div class="row">
-                        <div class="col-md-12 col-lg-8">
+                        <div class="col-md-12 col-lg-9">
                             <div class="items">
-                                <div class="product">
+                                <div class="product ">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-3">
-                                            <img class="img-fluid mx-auto d-block image p-2" src="/media/reports/2.png">
+                                            <img class="img-fluid mx-auto d-block image p-3" src="/media/{{list_img.Product_Img}}">
                                         </div>
                                         <div class="col-lg col-md-8">
                                             <div class="info">
                                                 <div class="row p-3">
                                                     <div class="col-md-8 col-sm product-name">
-                                                        <div class="product-name">
-                                                            <h4 href="#">พวงหรีดรักษ์โลก NR404 </h4>
-                                                            <h7 href="#">ราคา 1900 บาท</h7>
+                                                        <div class="product-name" >
+                                                            <h3 href="#">พวงหรีดรักษ์โลก {{Orderhis.product.Product_Code}} </h3>
+                                                            <h3 href="#">ราคา  {{Orderhis.product.Product_Price}} บาท</h3>
                                                             <div class="product-info ">
                                                                 <div class="row text-left">
                                                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                                                        <span class="value" style=" font-weight: bold;">รายละเอียดข้อมูลที่ทำการสั่งซื้อ :  </span>
+                                                                        <h5 style=" font-weight: bold;" style="color: var(--body-color);">รายละเอียดข้อมูลที่ทำการสั่งซื้อ</h5>
                                                                     </div>
-                                                                    <div class="col-lg col-md col-sm">
-                                                                        <span class="value">ข้อความบรรทัดที่ 1 : </span>  <span class="value">asdsadsadsadsa</span>
+                                                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                        <div id="copyText" onclick="copyToClipboard()">
+                                                                            <h5 class="value" style="font-size:1.2rem; font-weight: bold;">รหัสคำสั่งซื้อ: {{Orderhis.Order_code}}</h5>
+                                                                        </div>
+                                                                       
                                                                     </div>
-                                                                    <div class="col-lg col-md col-sm">
-                                                                        <span class="value">ข้อความบรรทัดที่ 2 :</span> <span class="value">asdsadsadsadsa</span>
+                                                                    <div class="col-lg-6 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">ข้อความบรรทัดที่ 1: </span><br> {{Orderhis.t1}}</span>  
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">ข้อความบรรทัดที่ 2: </span> <br> {{Orderhis.t2}}</span>
                                                                     </div>
                                                                   
-                                                                    <div class="col-lg col-md col-sm-12">
-                                                                        <span class="value">ชื่อผู้วายชนม์ : asdsadasdasdsadasd</span>
+                                                                    <div class="col-lg-12 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">ชื่อผู้วายชนม์ : </span> <br> {{Orderhis.t4}}</span>
                                                                     </div>
-                                                                    <div class="col-lg col-md col-sm-12">
-                                                                        <span class="value">ที่อยู่จัดสงสินค้า: asdsadasdsadsadasdsasadsad</span>
+                                                                    <div class="col-lg-12 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">ที่อยู่จัดสงสินค้า: </span>  <br> {{Orderhis.t3}}</span>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">เบอร์โทรติดต่อ </span>  <br> {{Orderhis.t6}}</span>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">ชื่อผู้ติดต่อ </span>  <br> {{Orderhis.t7}}</span>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md col-sm-12">
+                                                                        <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">ข้อมูลอื่นๆ เพิ่มเติม: </span>  <br> {{Orderhis.t5}}</span>
                                                                     </div>
                                                                    
-
-                                                                </div>
+                                                                   
+                                                                    </div>
                                                                 <div>
                                                                    
 
@@ -228,35 +257,45 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md col-sm quantity">
+                                                    <div class="col-md col-sm quantity ">
                                                         <label for="quantity">จำนวน :</label>
-                                                        <input id="quantity" type="number" value ="1" min="1" class="form-control quantity-input">
+                                                        <input id="quantity" name ="Qty" type="number" value ="1" min="1" class="form-control quantity-input">
+                                                        {% if Orderhis.log_img  %}
+                                                        <div class="col-12 col-md-12 col-sm-12 text-center mt-5" >
+                                                            <span class="value" style="font-size:1.2rem;"><span style="font-weight:bold;">รูปภาพ หรือโลโก้: </span></span>
+                                                            <br>
+                                                            <img src="/media/{{Orderhis.log_img}}" style="height: auto; width: 100%;" class="mt-2" alt="logo" />
+                                                        </div>
+                                                        {% else %}
+                        
+                                                        {% endif %}
                                                     </div>
                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
+                                   
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-4">
+                        <div class="col-md-12 col-lg-3">
                             <div class="summary">
-                                <h3>Summary</h3>
-                                <div class="summary-item"><span class="text">ยอดรวม</span><span class="price" id="price">3000 บาท</span></div>
-                                <!-- <div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div> -->
-                                <div class="summary-item"><span class="text">ค่าขนส่ง</span><span class="price" id="ship_pcice">15 บาท</span></div>
-                                <div class="summary-item"><span class="text">รวม</span><span class="price" id="total">3015 บาท</span></div>
+                             
+                               
+                                <div class="summary-item"><span class="text">ราคาที่ต้องชำระ</span><span class="price" id="total">{{Orderhis.product.Product_Price}} บาท</span></div>
                                 <div class="row">
                                     <div class="col-12 p-5 text-center">
-                                        <a href="/cartpayment" type="button" style="width: 100%;" class="btn btn-warning btn-lg btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ชำระสินค้า</a>
+                                        <button  type="submit" style="width: 100%; background-color:  var(--heading-color);" class="btn  btn-lg btn-block"><i class="fa fa-shopping-cart" aria-hidden="true"></i> ชำระสินค้า</button>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
+                </form>
                 </div>
             </div>
        </section>
@@ -332,14 +371,20 @@ var product_pricce = 1900;
             var quantity = $('#quantity').val(); // Get the quantity value
                 var pricePerUnit = product_pricce; // Assuming the price per unit is 3000 บาท
                 var totalPrice = quantity * pricePerUnit; // Calculate total price
-                var ship_pice2 = 15;
-                // Update the total price in the HTML
-                $('#price').text(totalPrice + ' บาท');
-                var all_pcice = totalPrice + +ship_pice2;
+                var all_pcice = totalPrice ;
                 $('#total').text( all_pcice+ ' บาท');
         });
     });
-
+    function copyToClipboard() {
+        var textToCopy = document.querySelector('#copyText h5').innerText;
+        var tempInput = document.createElement('input');
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Copied to clipboard: ' + textToCopy);
+      }
 </script>
 
 {% endblock content%}

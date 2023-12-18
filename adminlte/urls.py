@@ -10,5 +10,6 @@ urlpatterns = [
       path('product', views.product, name='product'),
        path('addproduct', views.addproduct, name='addproduct'),
         path('editproduct/<int:product_id>', views.editproduct, name='editproduct'),
+          path('orderdeital/<int:order_id>', views.orderdetial, name='orderdetial'),
         path('signout', views.signout, name='signout'),
 ]

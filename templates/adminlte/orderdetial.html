@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบการจัดการงาน Task Management</title>
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'admin/assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/iconly/bold.css' %}">
+
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/assets/css/app.css' %}">
+    <link rel="shortcut icon" href="{% static 'admin/assets/images/favicon.svg" type="image/x-icon' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+  
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    
+
+</head>
+<style>
+    *{
+        font-family: 'Noto Sans Thai', sans-serif;
+    }
+    .border{
+       
+        background: transparent;
+        border-radius: 10px;
+    
+        position: relative;
+        border-radius: 25px;
+    }
+        
+ 
+</style>
+
+<body style="margin-left:20px;">
+    <div id="app">
+        
+        <div class="wrapper" >
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12 text-center">
+                    <div class="container text-center">
+                        <div class="row">
+                                <div class="col-12 col-lg-12 mt-5">
+                                <img src="{% static 'assets/images/niranImg/logo1.png' %}" style="height: auto; width: 15%;" alt="logo" />
+                                <p class="ud-widget-desc mt-3" style="font-size: 3vw;     line-height: 50px; color:#f4ab13">
+                                    นิรันดร์ พวงหรีดรักษ์โลก
+                                </p>
+                                </div>
+                        </div>
+                        <h3>รายละเอียดการสั่งซื้อพวงหลีดออเดอร์: {{Orderhis.Order_code}}</h3>
+                        <div class="value  mt-2 " style="font-size:1.2rem;"><span style="font-weight:bold;">เวลาคำสั่งซื้อ </span> {{Orderhis.create_at| date:"d/m/Y H:i:s"}}</div>
+                    </div>
+                </div>
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="row gx-4 gx-lg-5 justify-content-center border"  style=" background-color:#ffffff;">
+                                <div class="col-6 col-md-6 col-sm-6 text-start p-4" >
+                                    <div class="value mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ข้อความบรรทัดที่ 1: </span> {{Orderhis.t1}}</div>  
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ข้อความบรรทัดที่ 2: </span>  {{Orderhis.t2}}</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ชื่อผู้วายชนม์ : </span>  {{Orderhis.t4}}</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ชื่อผู้ติดต่อ: </span>  {{Orderhis.t7}}</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">เบอร์โทรติดต่อ: </span>  {{Orderhis.t6}}</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ที่อยู่จัดส่งสินค้า: </span>  {{Orderhis.t3}}</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ข้อมูลอื่นๆ เพิ่มเติม: </span> {{Orderhis.t5}}</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">สีพื้นหลังป้าย: </span>  {{Orderhis.color}}</div>
+                                </div>
+                                 <div class="col-6 col-md-6 col-sm-6 text-start p-4" >
+                                    <div class="value mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">แบบพวงหลีด: </span> {{Orderhis.product.Product_Code}}</div>  
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">ราคา: </span>  {{Orderhis.product.Product_Price}} บาท</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">จำนวน : </span>  {{Orderhis.qty}} ชิ้น</div>
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">รวมยอดชำระ: </span>  {{Orderhis.total}} บาท</div>
+                                    
+                                    <div class="value  mt-2" style="font-size:1.2rem;"><span style="font-weight:bold;">สถาณะคำสั่งซื้อสินค้า: </span>   {% if Orderhis.status %}
+                         
+                                      <span class="badge bg-success">ยืนยันสำเร็จ</span>
+                                        {% elif Orderhis.status == None   %}
+                                        <span class="badge bg-warning">ค้างการยืนยัน</span>
+                                        {% else %}
+                                        <span class="badge bg-danger">ยกเลิกคำสั่งซื้อ</span>
+                                       
+                                      {% endif %}       
+                                    </div>  
+                                
+                                </div>
+                               
+                              {% if Orderhis.log_img  %}
+                                <div class="col-12 col-md-12 col-sm-12 text-center p-4 my-5" >
+                             
+                                    <img src="/media/{{Orderhis.log_img}}" style="height: auto; width: 30%;" alt="logo" />
+                                </div>
+                                {% else %}
+
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 p-5">
+                   
+                  
+                </div>  
+
+            </div>
+        </div>
+     
+    </div>
+
+   
+    <script src="{% static 'admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script src="{% static 'admin/assets/vendors/apexcharts/apexcharts.js' %}"></script>
+    <script src="{% static 'admin/assets/js/pages/dashboard.js' %}"></script>
+
+    <script src="{% static 'admin/assets/js/main.js' %}"></script>
+   
+    <script src="{% static 'admin/js/main.js' %}"></script>
+    <script src="{% static 'admin/js/alert.js' %}"></script>
+    <script src="{% static 'admin/js/summation.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+</body>
+
+</html>

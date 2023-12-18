@@ -42,7 +42,11 @@
       width: 100%;
   }
 </style>
+<a href="#" class="burger-btn d-block d-xl-none p-4">
+  <i class="bi bi-justify fs-3"></i>
+</a>
 <div id="main">
+
     <div class="page-heading">
         <h3>Edit infomation Product</h3>
         <nav aria-label="breadcrumb">
@@ -104,7 +108,7 @@
                             <div class="col-lg-6">
                               <h4>แนบรูปภาพของสินค้า</h4>
                               
-                          
+                              <input type="text" name="action" value="2"  hidden/>
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label  m-1" for="customFile1">รูปภาพสินค้า 1</label>
@@ -112,40 +116,56 @@
                                               {% if img.0.Product_Img %}
                                               <img src="/media/{{img.0.Product_Img}}"
                                                 alt="example placeholder" style="width: 300px;" id="blah"   />
+                                              </div>
+                                              <div class="d-flex justify-content-center" id="img1">
+                                                  <div class="btn btn-primary btn-rounded" onclick="remove_data(1,{{img.0.Product_Img_id}})" >
+                                                      <label class="form-label text-white m-1" for="customFile1" id="t1">ลบรูปภาพ</label>
 
+                                                    
+                                                  </div>
+                                              </div>
                                               {% else %}  
                            
                                               <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" alt="example placeholder" style="width: 300px;" id="blah"   />
-                                              {% endif %}
-                                                
                                             </div>
                                             <div class="d-flex justify-content-center">
                                                 <div class="btn btn-primary btn-rounded">
-                                                    <label class="form-label text-white m-1" for="customFile1">เพิ่มรูปภาพ1</label>
-                                        
-                                                    <input type="file" onchange="readURL(this);" value="{{img.0.Product_Img}}"  class="form-control d-none" id="customFile1" name="imgReport"/>
+                                                    <label class="form-label text-white m-1" for="customFile1" id="img1">เพิ่มรูปภาพ</label>
+                                                  
+                                                    <input type="file" onchange="readURL(this);" value=""  class="form-control d-none" id="customFile1" name="imgReport"/>
                                                 </div>
                                             </div>
+                                              {% endif %}
+                                                
+                                          
                                         </div>
                                         <div class="col">
                                             <label class="form-label  m-1" for="customFile2">รูปภาพสินค้า 2</label>
                                             <div class="mb-4 d-flex justify-content-center">
                                                 {% if img.1.Product_Img %}
                                                 <img src="/media/{{img.1.Product_Img}}" alt="example placeholder" style="width: 300px;" id="adsa"   />
-
+                                              </div>
+                                              <div class="d-flex justify-content-center" id="img2">
+                                                  <div class="btn btn-primary btn-rounded"  onclick="remove_data(2,{{img.1.Product_Img_id}})">
+                                                      <label class="form-label text-white m-1" for="customFile2">ลบรูปภาพ</label>
+                                          
+                                                   
+                                                  </div>
+                                              </div>
                                                 {% else %}  
                              
                                                 <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" alt="example placeholder" style="width: 300px;" id="adsa"   />
+                                              </div>
+                                              <div class="d-flex justify-content-center">
+                                                  <div class="btn btn-primary btn-rounded">
+                                                      <label class="form-label text-white m-1" for="customFile2">เพิ่มรูปภาพ</label>
+                                          
+                                                      <input type="file" onchange="readdata(this);" value=""  class="form-control d-none" id="customFile2" name="imgReport2"/>
+                                                  </div>
+                                              </div>
                                                 {% endif %}
                                                
-                                            </div>
-                                            <div class="d-flex justify-content-center">
-                                                <div class="btn btn-primary btn-rounded">
-                                                    <label class="form-label text-white m-1" for="customFile2">เพิ่มรูปภาพ2</label>
-                                        
-                                                    <input type="file" onchange="readdata(this);" value=""  class="form-control d-none" id="customFile2" name="imgReport2"/>
-                                                </div>
-                                            </div>
+ 
                                         </div>
                                     </div>
                             </div>
@@ -163,6 +183,32 @@
 
 </div>
 <script>
+  function remove_data(img,img_id){
+    console.log(img)
+    post_to_remove(img_id);
+    if(img == 1){
+      $('#blah').attr('src', "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg");
+      $('#img1').empty()
+      $('#img1').append(`
+      <div class="btn btn-primary btn-rounded">
+          <label class="form-label text-white m-1" for="customFile1" id="img1">เพิ่มรูปภาพ</label>
+          <input type="file" onchange="readURL(this);" value="" class="form-control d-none" id="customFile1" name="imgReport"/>
+      </div>
+  `);
+      
+    }else{
+      $('#adsa').attr('src', "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg");
+      $('#img2').empty()
+      $('#img2').append(`
+      <div class="btn btn-primary btn-rounded">
+          <label class="form-label text-white m-1" for="customFile2" id="img2">เพิ่มรูปภาพ</label>
+          <input type="file" onchange="readdata(this);" value="" class="form-control d-none" id="customFile2" name="imgReport2"/>
+      </div>
+  `);
+    }
+    
+  }
+
     function readURL(input) {
         if (input.files && input.files[0]) {
           var reader = new FileReader();
@@ -174,7 +220,10 @@
           reader.readAsDataURL(input.files[0]);
         }
       }
+
+
       function readdata(input) {
+        console.log(input)
         if (input.files && input.files[0]) {
           var reader2 = new FileReader();
   
@@ -185,6 +234,30 @@
           reader2.readAsDataURL(input.files[0]);
         }
       }
+
+    function post_to_remove(img_id){
+      
+      $.ajax({
+        type: "POST",
+        url: "/editproduct/{{product.Product_id}}", 
+        dataType: 'json',
+            async: false,
+            //json object to sent to the authentication url
+            data: {
+               csrfmiddlewaretoken: '{{ csrf_token }}' ,
+               "action":"remove",
+               "img_id":img_id
+            },
+        success: function(response) {
+        // Handle the response from the server
+        console.log( response);
+        },
+        error: function(xhr, status, error) {
+        // Handle errors
+        console.log("Error: " + error);
+        }
+        });
+    }
 </script>
 
 {% endblock content%}

@@ -19,15 +19,14 @@ from WebEcom import views
 
 urlpatterns = [
     path('index', views.index, name='index'),
-    path('/index', views.index, name='index'),
     path('', views.index, name='index'),
     path('info', views.info, name='info'),
-     path('about', views.about, name='about'),
-
-     path('Product/cartdetail', views.cartdetail, name='cartdetail'),
-    path('cartpayment', views.cartPayment, name='cartpayment'),
+    path('about', views.about, name='about'),
+    path('Product/cartdetail/<str:Order_code>', views.cartdetail, name='cartdetail'),
+    path('Product/cartdetail/CartPayment/<str:Order_code>', views.cartPayment, name='cartpayment'),
     #  path('cartpayment/<str:order_code>', views.cartPayment, name='cartpayment'),
-      path('productlist', views.productlist, name='productlist'),
-        path('Product/<str:product_code>', views.Product_data, name='Product'),
+    path('productlist', views.productlist, name='productlist'),
+    path('Product/<str:product_code>', views.Product_data, name='Product'),
+
      
 ]

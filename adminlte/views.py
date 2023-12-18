@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from WebEcom.models import *
 from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from datetime import datetime
 # Create your views here.
 # Create your views here.
 def signout(request):
@@ -23,7 +25,7 @@ def signin(request):
             fname = user.first_name
             # messages.success(request, "Logged In Sucessfully!!")
             print(fname)
-            return redirect('home')
+            return redirect('sale')
         
         else:
             messages.error(request, "Username หรือ Password ไม่ถูกต้อง")
@@ -36,13 +38,39 @@ def home(request):
         pass
     else:
         return redirect('login')
-    return render(request, "adminlte/dashborad.html")
+    if request.method =="POST":
+        print(request.POST)
+        Orderhis_ = Orderhis.objects.get(Order_id = request.POST['order_id'])
+        if request.POST['status'] == 'true':
+            Orderhis_.status =True
+        else: 
+             Orderhis_.status =False
+        Orderhis_.status_change = datetime.now()
+        Orderhis_.save()
+        return JsonResponse({"status":"ok"})
+    data_ = Orderhis.objects.all()
+    return render(request, "adminlte/Sale.html",{"list_data":data_})
 def sale(request):
     if request.user.is_authenticated:
         pass
     else:
         return redirect('login')
-    return render(request, "adminlte/Sale.html")
+    if request.method =="POST":
+        print(request.POST)
+        Orderhis_ = Orderhis.objects.get(Order_id = request.POST['order_id'])
+        if request.POST['status'] == 'true':
+            Orderhis_.status =True
+        else: 
+             Orderhis_.status =False
+        Orderhis_.status_change = datetime.now()
+        Orderhis_.save()
+        return JsonResponse({"status":"ok"})
+    data_ = Orderhis.objects.all()
+    return render(request, "adminlte/Sale.html",{"list_data":data_})
+def orderdetial(request,order_id):
+    Orderhis_ = Orderhis.objects.get(Order_id= order_id)
+    print(Orderhis_.log_img)
+    return render(request, "adminlte/orderdetial.html",{"Orderhis":Orderhis_})
 def product(request):
     if request.user.is_authenticated:
         pass
@@ -83,13 +111,13 @@ def addproduct(request):
         Product_Img_.Product = Product_
         Product_Img_.Product_Img = files['imgReport']
         Product_Img_.save()
-        # try:
-        #     Product_Img_ = Product_Img_()
-        #     Product_Img_.Product = Product_
-        #     Product_Img_.Product_Img = files['imgReport2']
-        #     Product_Img_.save()
-        # except:
-        #     pass
+        try:
+            Product_Img_ = Product_Img_()
+            Product_Img_.Product = Product_
+            Product_Img_.Product_Img = files['imgReport2']
+            Product_Img_.save()
+        except:
+            pass
         
 
 
@@ -104,6 +132,16 @@ def editproduct(request,product_id):
     if request.method == "POST":
         print(request.POST)
         data = request.POST
+        if data['action'] == "remove":
+
+            try:
+                img_id = data['img_id']
+                product_img_ = Product_Img.objects.get(Product_Img_id = img_id)
+                product_img_.delete()
+
+                return JsonResponse({"status":"ok"})
+            except:
+                return JsonResponse({"status":"ng"})
         files = request.FILES 
         print(files)
         Product_ = Product.objects.get(Product_id = product_id)
@@ -129,45 +167,20 @@ def editproduct(request,product_id):
             pass
         print(fil1)
         print(fil2)
-        if fil1 != None and fil2 != None:
-            for i in Product_img_:
-                image_path = i.Product_Img.path
-                if os.path.exists(image_path):
-                    os.remove(image_path)
-                    i.delete()
-
+        if fil1 != None :
             new_pic = Product_Img()
             new_pic.Product = Product_
             new_pic.Product_Img = fil1
             new_pic.save()
+           
+        if fil2 != None:
             new_pic = Product_Img()
             new_pic.Product = Product_
             new_pic.Product_Img = fil2
             new_pic.save()
-        elif fil1 != None and fil2 == None:
-  
-            image_path = Product_img_.first().Product_Img.path
-            if os.path.exists(image_path):
-                os.remove(image_path)
-                Product_img_.first().delete()
-            new_pic = Product_Img()
-            new_pic.Product = Product_
-            new_pic.Product_Img = fil1
-            new_pic.save()
-        elif fil1 == None and fil2 != None:
-            if len(Product_img_) != 1:
-                image_path = Product_img_.last().Product_Img.path
-                if os.path.exists(image_path):
-                    os.remove(image_path)
-                    Product_img_.last().delete()
-            
-            new_pic = Product_Img()
-            new_pic.Product = Product_
-            new_pic.Product_Img = fil2
-            new_pic.save()
-        else:
-            pass
-   
+        product_ = Product.objects.get(Product_id = product_id)
+        product_img = Product_Img.objects.filter(Product= product_)
+        return HttpResponseRedirect(f"{product_id}",{"product":product_,"img":product_img})
     product_ = Product.objects.get(Product_id = product_id)
-    product_img = Product_Img.objects.filter(Product= product_)
+    product_img = Product_Img.objects.filter(Product= product_).order_by("-Product_Img_id")
     return render(request, "adminlte/editproduct.html",{"product":product_,"img":product_img})

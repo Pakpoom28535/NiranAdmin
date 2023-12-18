@@ -179,50 +179,47 @@
                  <hr class="mt-0 line " style="color: #1b3431; border: 10px;">
                </div>
             </div>
-            <div class="container d-flex justify-content-center mt-5 mb-5">
+            <div class="container-fluid d-flex justify-content-center mt-5 mb-5">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <span style="color: #1b3431;">ช่องทางการชำระเงิน</span>
+                        <h5 style="color: #1b3431;">ช่องทางการชำระเงิน</h5>
                         <div class="card">
                           <div class="p-3">
                             <div class="d-flex mb-2">
-                              <span style="color: #1b3431;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ขอบคุณและขออนุโมทนาบุญที่ท่านได้ทำบุญผ่าน Nirun นะคะ โปรดเปิดแอปพลิเคชั่นธนาคารบนมือถือเพื่อสแกน QR Code หรือ
-                                    capture screen QR Code นี้ เพื่อเปิดใช้ในแอปพลิเคชันธนาคารบนมือถือของคุณ หากโอนแล้วรบกวนส่งหลักฐานการโอนเงินมาที่
-                                    Line ID : @niranwreath เพื่อที่เราจะได้ส่งรูปพวงหรีดมาให้ท่านก่อนส่งคะ
+                              <span style="color: #1b3431;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ขอบคุณที่เลือกใช้นิรันดร์ค่ะ โปรดทำการชำระค่าพวงหรีดไปยังเลขบัญชีด้านล่าง หากโอนแล้วรบกวนส่งหลักฐานการโอนเงินมาที่ Line ID @niranwreath เพื่อที่จะยืนยันคำสั่งซื้อค่ะ 
+
                               </span>
                             </div>
                           </div>
                           <hr class="mt-0 line">
-                          <div class="p-3 d-flex justify-content-center">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <img src="{%static 'assets/images/niranImg/qrcode-demo.png' %}" style="width: 80%;" alt="">
-                                </div>
-                            </div>
+                          <div class=" d-flex justify-content-center">
+                            <img src="{%static 'assets/images/niranImg/payment.jpg' %}"  alt="">
                           </div>
                         </div>
                     </div>
 
                   <div class="col-md-6">
-                    <span style="color: #1b3431;">ช่องทางการส่งหลักฐานการชำระเงิน</span>
+                    <h5 style="color: #1b3431;">ช่องทางการส่งหลักฐานการชำระเงิน</h5>
                     <div class="card">
                         <div class="p-3">
 
                             <div class="d-flex justify-content-between mb-2">
                               <span style="color: #1b3431;">เลขที่คำสั่งซื้อ</span>
-                              <span style="color: #3b99e0;">N00342</span>
+                              <div id="copyText" onclick="copyToClipboard()">
+                                <span style="color: var(--heading-color); font-weight:20px;">{{Orderhis.Order_code}}</span>
+                              </div>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                               <span style="color: #1b3431;">วันที่สั่งซื้อ</span>
-                              <span style="color: #3b99e0;">25/11/2023</span>
+                              <span style="color: var(--heading-color); font-weight:20px;">{{Orderhis.create_at | date:"d/m/y"}}</span>
                             </div>
                             <div class="d-flex justify-content-between mb-2">
                                 <span style="color: #1b3431;">ยอดรวมทั้งหมด</span>
-                                <span style="color: #3b99e0;">3200 บาท</span>
+                                <span style="color: var(--heading-color); font-weight:20px;">{{Orderhis.total}}</span>
                               </div>
                               <div class="d-flex justify-content-between mb-2">
                                 <span style="color: #1b3431;">ช่องทางการชำระเงิน</span>
-                                <span style="color:#3b99e0;">Promptpay</span>
+                                <span style="color: var(--heading-color); font-weight:20px;">โอนจ่ายมายังบัญชี                                </span>
                               </div>
                           </div>
                         <div class="card">
@@ -231,7 +228,7 @@
                                 <div class="payment-button">
                                     <div class="row">
                                         <div class="col-12">
-                                            <a class="btn btn-outline-success" style="width: 100%;" href='https://lin.ee/KpuPbQ0' target="black_"><p><img src="{%static 'assets/images/niranImg/LINE_logo.png' %}" style="width: 1.5rem;" alt=""> Line ID : @niranwreath </p></a>
+                                            <a class="btn" style="width: 100%; background-color:  var(--heading-color); color:#000000;" href='https://lin.ee/KpuPbQ0' target="black_"><span><img src="{%static 'assets/images/niranImg/LINE_logo.png' %}" style="width: 1.5rem;" alt=""> Line ID : @niranwreath </span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +236,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 text-center p-5">
-                                <img src="{%static 'assets/images/niranImg/logo1.png' %}" style="width: 40%;" alt="">
+                                <img src="{%static 'assets/images/niranImg/qrline.png' %}" style="width: 40%;" alt="">
                             </div>
                         </div>
                     </div>
@@ -316,6 +313,16 @@
     
       function increment(){
         qty.value = parseInt(qty.value) + 1;
+      }
+      function copyToClipboard() {
+        var textToCopy = document.querySelector('#copyText span').innerText;
+        var tempInput = document.createElement('input');
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Copied copied to clipboard: ' + textToCopy);
       }
     </script>
     
