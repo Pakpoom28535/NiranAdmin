@@ -6,6 +6,7 @@ from adminlte import views
 urlpatterns = [
     path('home', views.home, name='home'),
     path('login', views.signin, name='login'),
+    path('signin', views.signin, name='signin'),
      path('sale', views.sale, name='sale'),
       path('product', views.product, name='product'),
        path('addproduct', views.addproduct, name='addproduct'),

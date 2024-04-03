@@ -50,7 +50,7 @@
                         <tr>
                            <td>{{ i.Order_code }}</td>
                           <td>{{i.product.Product_Code}}</td>
-                          <td>{{i.create_at | date:"d/m/Y H:i"}}</td>
+                          <td><span style="display:none;">{{ i.create_at|date:"U" }}</span>{{i.create_at | date:"d/m/Y H:i"}}</td>
                           <td>{{i.product.Product_Price}}</td>
                           <td>{{i.qty}}</td>
                           <td>{{i.total}}</td>       

@@ -74,6 +74,8 @@ def cartdetail(request,Order_code):
     if request.method == "POST":
         print(request.POST)
         qty = int(request.POST.get('Qty', 0))
+        if qty == 0:
+            qty = 1
         data_.qty = qty
         total_ = qty * data_.product.Product_Price
         data_.total = total_
