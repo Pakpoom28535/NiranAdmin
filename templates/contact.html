@@ -1,0 +1,31 @@
+{% extends "base_1.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+    .custom-link {
+        color: #FFA500; /* Set the color to your desired color (e.g., orange) */
+        text-decoration: none; /* Remove the default underline */
+    }
+
+    .custom-link:hover {
+        color: #FFD700; /* Set the color for the link when hovered (e.g., gold) */
+    }
+    @media (max-width: 767px) {
+        #data_row {
+            margin-top: 70px !important; /* Add !important to override existing styles if needed */
+        }
+    }
+</style>
+<section id="product" class="ud-features mt-5" >
+    <div class="container wow fadeInUp">
+      <div class="row d-flex justify-content-center">
+        
+        <div class="col-lg-12 mt-5 mb-5">
+            <img src="{%static 'assets/images/niranImg/contact.jpg' %}">
+        </div>
+    </div>
+      
+    </div>
+   </section>
+{% endblock content%}   

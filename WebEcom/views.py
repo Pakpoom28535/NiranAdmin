@@ -88,3 +88,9 @@ def cartPayment(request,Order_code):
     print(Order_code)
     data_ = Orderhis.objects.get(Order_code=Order_code)
     return render(request, "CartPayment.html",{'Orderhis':data_})
+
+def productlist_student(request):
+ 
+    return render(request, "productlist_student.html")
+def contact(request):
+    return render(request, "contact.html")

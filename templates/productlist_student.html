@@ -1,0 +1,103 @@
+{% extends "base_1.html" %}
+
+{% block content %}
+{% load static %}
+<style>
+    .custom-link {
+        color: #FFA500; /* Set the color to your desired color (e.g., orange) */
+        text-decoration: none; /* Remove the default underline */
+    }
+
+    .custom-link:hover {
+        color: #FFD700; /* Set the color for the link when hovered (e.g., gold) */
+    }
+    @media (max-width: 767px) {
+        #data_row {
+            margin-top: 70px !important; /* Add !important to override existing styles if needed */
+        }
+    }
+</style>
+   <section class="py-5 ud-features">
+    <div class="container px-4 px-lg-5">
+        <div class="container"  id="data_row">
+            <div class="row d-flex justify-content-center" >
+              <div class="col-lg-12 mt-2" >
+                  <p class="box-icon-10 mt-5">
+                      พวงหรีดชุดนักเรียน
+                      
+                      
+                  </p>
+<h5  class="mt-3 box-icon-10 text-center" style="font-size: 1.5rem;">สำหรับพวงหรีดรุ่นนี้สั่งซื้อได้แค่ กทม ปริมณฑล และตัวแทนที่มีพวงหรีดชุดนักเรียน ในการสั่งซื้อรบกวนสั่งทาง line official และ เฟสบุ๊กค่ะ</h5>
+                    
+                    
+              
+              </div>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-left mt-5">
+            
+
+                <div class="col mb-2">
+                    <div class="team__item-3 set-bg uk-border-rounded" style="background-image: url('{%static 'assets/images/niranImg/p1.jpg' %}');" >
+                        <div class="team__text">
+                            <div class="team__title">
+                                <h5>NU2001</h5>
+                            </div>
+                            <p class="text-warning">ราคา 3000 บาท</p>
+                            <p >นำไปบริจาคเป็นชุดนักเรียนชายได้ 2 ชุด</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-2">
+                    <div class="team__item-3 set-bg uk-border-rounded" style="background-image: url('{%static 'assets/images/niranImg/p2.jpg' %}');" >
+                        <div class="team__text">
+                            <div class="team__title">
+                                <h5>NU2002</h5>
+                            </div>
+                            <p class="text-warning">ราคา 3000 บาท</p>
+                            <p >นำไปบริจาคเป็นชุดนักเรียนหญิงได้ 2 ชุด</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-2">
+                    <div class="team__item-3 set-bg uk-border-rounded" style="background-image: url('{%static 'assets/images/niranImg/p3.jpg' %}');" >
+                        <div class="team__text">
+                            <div class="team__title">
+                                <h5>NU2003</h5>
+                            </div>
+                            <p class="text-warning">ราคา 3000 บาท</p>
+                            <p >นำไปบริจาคเป็นชุดนักเรียนชายได้ 2 ชุด</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-2">
+                    <div class="team__item-3 set-bg uk-border-rounded" style="background-image: url('{%static 'assets/images/niranImg/p4.jpg' %}');" >
+                        <div class="team__text">
+                            <div class="team__title">
+                                <h5>NU2004</h5>
+                            </div>
+                            <p class="text-warning">ราคา 3000 บาท</p>
+                            <p >นำไปบริจาคเป็นชุดนักเรียนหญิงได้ 2 ชุด</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-2">
+                    <div class="team__item-3 set-bg uk-border-rounded" style="background-image: url('{%static 'assets/images/niranImg/p5.jpg' %}');" >
+                        <div class="team__text">
+                            <div class="team__title">
+                                <h5>NU4001</h5>
+                            </div>
+                            <p class="text-warning">ราคา 5000 บาท</p>
+                            <p >นำไปบริจาคเป็นชุดนักเรียนชายได้ 2 ชุดและชุดนักเรียนหญิง 2 ชุด</p>
+                            
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+{% endblock content%}

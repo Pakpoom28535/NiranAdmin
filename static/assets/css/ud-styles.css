@@ -681,11 +681,19 @@ p {
   padding-top: 120px;
   padding-bottom: 90px;
 }
-
+.ud-features-student {
+  background-color: #50402a;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 @media (max-width: 767px) {
   .ud-features {
     padding-top: 80px;
     padding-bottom: 40px;
+  }
+  .ud-features-student {
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -804,17 +812,44 @@ p {
   background-image: url("../images/faq/shape.svg");
 }
 .ud-about {
-  background-image: url("../images/niranImg/SY_bg.png");
+  background-image: url("../images/niranImg/NIRAN_WEB GUIDELINE.png");
   /* background: #f3f4fe; */
-  padding: 120px 0;
+ 
+  padding: 130px 0;
+  
 }
-
+.web {
+  background-image: url("../images/niranImg/section2.png");
+  /* background: #f3f4fe; */
+ height: 1200px;
+  padding: 130px 0;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .ud-about {
+    background-position: center center; /* Center the image horizontally and vertically */
+  }
+}
 @media (max-width: 767px) {
   .ud-about {
     padding: 80px 0;
   }
+  .state  {
+    margin-left: 50px;
+  
+  }
 }
+.state  {
+  margin-left: 100px;
 
+}
+@media (max-width: 767px) {
+
+  .state  {
+    margin-left: 20px;
+  
+  }
+}
 .ud-about-wrapper {
   /* background: var(--white); */
   background: none;
@@ -851,7 +886,7 @@ p {
 }
 
 .ud-about-content {
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .ud-about-content .tag {
@@ -915,7 +950,22 @@ p {
     line-height: 30px;
   }
 }
+.ud-about-content h5 {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 40px;
+  margin-bottom: 25px;
+  color: #f1d687;
+}
 
+@media (max-width: 767px) {
+  .ud-about-content h5 {
+    font-family: var(--font);
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
 .ud-about-content p {
   font-family: var(--font);
   font-size: 16px;

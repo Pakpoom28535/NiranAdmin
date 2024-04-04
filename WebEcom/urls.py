@@ -26,6 +26,8 @@ urlpatterns = [
     path('Product/cartdetail/CartPayment/<str:Order_code>', views.cartPayment, name='cartpayment'),
     #  path('cartpayment/<str:order_code>', views.cartPayment, name='cartpayment'),
     path('productlist', views.productlist, name='productlist'),
+     path('contact', views.contact, name='contact'),
+    path('productlist/Student', views.productlist_student, name='productlist_student'),
     path('Product/<str:product_code>', views.Product_data, name='Product'),
 
      
