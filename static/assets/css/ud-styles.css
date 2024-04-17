@@ -3118,7 +3118,11 @@ position: relative;
 z-index: 1;
 margin-bottom: 30px;
 }
-
+@media screen and (max-width: 1000px) {
+  .team__item-3 {
+      height: 600px;
+  }
+}
 .team__item-3:after {
 position: absolute;
 left: 0;
